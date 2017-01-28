@@ -1,0 +1,24 @@
+- page = @page || app.root
+- title = content_for(:meta_title) || page.title
+- description = content_for(:meta_description) || page.description
+- image = content_for(:meta_image)
+- image ||= page.share_image.file.url if page.share_image.present?
+- image ||= app.root.share_image.file.url if app.root.share_image.present?
+- url = request.original_url
+
+%title= title
+%meta(name="description" content="#{description}")
+%link(rel="canonical" href="#{url}")
+
+%meta(property="og:type" content="website")
+%meta(property="og:title" content="#{title}")
+%meta(property="og:description" content="#{description}")
+%meta(property="og:image" content="#{image}")
+%meta(property="og:url" content="#{url}")
+%meta(name="twitter:card" content="summary")
+- if app.twitter.present?
+  %meta(name="twitter:site" content="@#{app.twitter}")
+%meta(name="twitter:title" content="#{title}")
+%meta(name="twitter:description" content="#{description}")
+%meta(name="twitter:image" content="#{image}")
+%meta(name="twitter:url" content="#{url}")

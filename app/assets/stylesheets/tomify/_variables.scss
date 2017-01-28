@@ -1,0 +1,10 @@
+$white: white !default;
+$black: black !default;
+$blue: #4D90FE !default;
+$green: #42B755 !default;
+
+$brand: $green !default;
+$brand-primary: $blue !default;
+$brand-success: $green !default;
+
+@import "bootstrap/variables";

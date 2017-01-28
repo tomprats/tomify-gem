@@ -1,0 +1,6 @@
+@WillInitializeMixin = {
+  getInitialState: ->
+    @componentWillInitialize?()
+
+    {}
+}

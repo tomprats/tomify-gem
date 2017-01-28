@@ -1,0 +1,32 @@
+.navbar.center {
+  text-align: center;
+
+  .navbar-brand img { height: 100%; }
+}
+
+.navbar.center .nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar, .alert {
+  margin-bottom: 0;
+
+  .container-fluid {
+    margin-top: 0;
+  }
+}
+
+.brand-navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+  border-color: $brand;
+  background-color: $brand;
+  .navbar-brand, .navbar-nav > li > a { color: $white; }
+  .navbar-toggle .icon-bar { background-color: $white; }
+}
+
+.container-fluid {
+  margin-top: 20px;
+}
