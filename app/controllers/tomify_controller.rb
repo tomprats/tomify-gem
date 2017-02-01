@@ -1,2 +1,3 @@
-class TomifyController < Tomify.parent_controller.constantize
+class TomifyController < ActionController::Base
+  include Tomify::Concerns::Default
 end

@@ -1,4 +1,4 @@
-class Tomify::PagesController < TomifyController
+class Tomify::PagesController < Tomify.base_controller.constantize
   def show
     @page = Page.find_by(path: params[:path]) || not_found
 

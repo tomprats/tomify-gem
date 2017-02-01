@@ -1,4 +1,4 @@
-class Tomify::UsersController < TomifyController
+class Tomify::UsersController < Tomify.base_controller.constantize
   before_action :require_user!, only: [:edit, :update]
   before_action :not_found, only: :create, unless: "app.allow_signup"
 

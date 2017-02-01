@@ -5,6 +5,7 @@ module Tomify
 
       include Tomify::Concerns::Default::Helpers
       include Tomify::Concerns::Default::AuthHelpers
+      include Tomify::Concerns::Default::ReactHelper
 
       included do
         add_flash_types :success, :info, :warning, :danger

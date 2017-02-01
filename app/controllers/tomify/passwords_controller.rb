@@ -1,4 +1,4 @@
-class Tomify::ResetPasswordsController < TomifyController
+class Tomify::ResetPasswordsController < Tomify.base_controller.constantize
   def create
     if user = User.find_by(email: params[:email])
       UserMailer.reset_password(user).deliver_now

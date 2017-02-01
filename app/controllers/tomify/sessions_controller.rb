@@ -1,4 +1,4 @@
-class Tomify::SessionsController < TomifyController
+class Tomify::SessionsController < Tomify.base_controller.constantize
   def create
     email = params[:user][:email].strip.downcase
     user = User.find_by(email: email)
