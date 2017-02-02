@@ -1,7 +1,7 @@
 %nav.navbar.navbar-default.center
   .container-fluid
     .navbar-header
-      = link_to Page.root.name, root_path, class: "navbar-brand visible-xs-block"
+      = link_to root_page.name, root_path, class: "navbar-brand visible-xs-block"
       %button.navbar-toggle.collapsed(data-toggle="collapse" data-target="#navbar")
         %span.icon-bar
         %span.icon-bar
@@ -10,7 +10,7 @@
       %ul.nav.navbar-nav
         - if current_user
           %li= link_to "Profile", edit_user_path
-        - elsif app.allow_signup
+        - elsif setting(:allow_signup)
           %li= link_to "Login", new_session_path
         - pages.each do |page|
           - children = page.children.where(active: true)

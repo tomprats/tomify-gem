@@ -1,3 +1,4 @@
-Namespace.find_or_create "Tomify.Config", {
-  basePath: "/"
-}
+config = Namespace.find_or_create "Tomify.Config", {}
+config = $.extend {
+  basePath: ""
+}, config

@@ -1,9 +1,5 @@
-module Tomify
-  module Concerns
-    module Dynamic
-      extend ActiveSupport::Concern
+module Tomify::Concerns::Dynamic
+  extend ActiveSupport::Concern
 
-      include Tomify::Concerns::Dynamic::Helpers
-    end
-  end
+  include Tomify::Concerns::Dynamic::Helpers
 end

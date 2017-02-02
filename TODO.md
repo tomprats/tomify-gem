@@ -1,9 +1,25 @@
 # TODO
 
-- Specify gem dependencies
-- Specify migration path from default-website to tomify-gem
-- Layout File(s)
+- App Config
+  - Move local variable to Class
+  - Carrierwave
+  - Flash Patch
+  - Mailer Settings
+    - Initialzer
+    - Config in environments
+  - Application
+    - Timezone
+  - Database.yml
 - Mailers
-- Default/Dynamic Controllers
-- Admin/API Controllers
-- Handle Dependency on React and ReactDOM
+  - Default
+  - Previews
+- Models
+  - Settings
+    - validate name
+    - different types
+  - Templates
+    - App
+    - Gem
+  - Uploaders
+    - Settings
+    - Page Images based off of JSON Setting Record

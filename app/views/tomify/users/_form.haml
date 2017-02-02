@@ -1,0 +1,19 @@
+- action = current_user ? "edit" : "new"
+= form_for current_user || :user, url: user_path, remote: true, html: { id: "#{action}-user-form" } do |f|
+  .form-group
+    = f.email_field :email, placeholder: "Email", class: "form-control"
+  .form-group
+    = f.text_field :first_name, placeholder: "First Name", class: "form-control"
+  .form-group
+    = f.text_field :last_name, placeholder: "Last Name", class: "form-control"
+  - if current_user
+    .form-group
+      = f.password_field :password, placeholder: "Password (Optional)", class: "form-control"
+  - else
+    .form-group
+      = f.password_field :password, placeholder: "Password", class: "form-control"
+    .form-group
+      = f.password_field :password_confirmation, placeholder: "Password", class: "form-control"
+  .form-group
+    - text = current_user ? "Save" : "Sign Up"
+    = f.submit text, class: "btn btn-primary"

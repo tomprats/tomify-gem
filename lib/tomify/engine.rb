@@ -1,14 +1,10 @@
+require "rake"
+
 module Tomify
   class Engine < ::Rails::Engine
-    initializer "tomify.append_assets_path" do |app|
-      root = Gem::Specification.find_by_name("tomify").gem_dir
-      app.config.assets.paths << "#{root}/vendor/tomify/#{Rails.env}"
-    end
-
-    initializer "tomify.render_component" do |app|
-      ActionController::Renderers.add :component do |name, options|
-        component = react_component name, options.delete(:props)
-        render options.merge(inline: component)
+    rake_tasks do
+      Rake::Task["db:seed"].enhance do
+        load_seed
       end
     end
   end

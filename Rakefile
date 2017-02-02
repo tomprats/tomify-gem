@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "bundler/gem_tasks"
 
-import "lib/tasks/tomify/package.rake"
+Dir.glob("lib/tasks/**/*.rake").each { |r| import r }
+
 task default: "tomify:package"

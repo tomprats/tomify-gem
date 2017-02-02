@@ -1,0 +1,24 @@
+.container-fluid
+  .row.text-center
+    .col-md-8.col-md-offset-2
+      .page= @page.text_to_html
+      - if contact_email = setting(:contact_email)
+        %p
+          = link_to "mailto:#{contact_email}", target: :_blank do
+            = fa_icon :send
+            = contact_email
+      - if twitter = setting(:twitter)
+        %p
+          = link_to "https://twitter.com/#{twitter}", target: :_blank do
+            = fa_icon :twitter
+            = twitter
+      - if facebook = setting(:facebook)
+        %p
+          = link_to "https://www.facebook.com/#{facebook}", target: :_blank do
+            = fa_icon :facebook
+            = facebook
+      - if instagram = setting(:instagram)
+        %p
+          = link_to "https://instagram.com/#{instagram}", target: :_blank do
+            = fa_icon :instagram
+            = instagram

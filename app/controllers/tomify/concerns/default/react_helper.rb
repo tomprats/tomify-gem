@@ -1,13 +1,7 @@
 include ActionView::Helpers::TagHelper
 
-module Tomify
-  module Concerns
-    module Default
-      module ReactHelper
-        def react_component(name, props = {})
-          content_tag :div, "", class: "react-component", data: { react: { component: name, props: props.to_json }}
-        end
-      end
-    end
+module Tomify::Concerns::Default::ReactHelper
+  def react_component(name, props = {})
+    content_tag :div, "", class: "react-component", data: { react: { component: name, props: props.to_json }}
   end
 end
