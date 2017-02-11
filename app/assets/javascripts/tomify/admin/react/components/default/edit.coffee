@@ -1,9 +1,9 @@
 Component.create "Edit.Container",
   componentWillInitialize: ->
-    @model = Model.find_or_create @props.name
-    @store = Store.find_or_create "#{@props.name}.Edit"
-    @record = @store.find_or_create "Record", {}
-    @changes = @store.find_or_create "Changes", {}
+    @model = Model.findOrCreate @props.name
+    @store = Store.findOrCreate "#{@props.name}.Edit"
+    @record = @store.findOrCreate "Record", {}
+    @changes = @store.findOrCreate "Changes", {}
     @followStores = { store: @store, record: @record, changes: @changes }
     @followModels = (field.model for field in @model.fields when field.model)
     context = @
@@ -12,8 +12,7 @@ Component.create "Edit.Container",
       context.record.set(response.data)
       context.store.merge(show: true)
     @follow @model.on "update", (response) ->
-      Store.find_or_create("Messages").push { type: response.type, text: response.message }
-    return if @props.permanent
+      Store.findOrCreate("Messages").push { type: response.type, text: response.message }
     @follow @model.on "new", -> context.store.merge(show: false)
     @follow @model.on "update", (response) ->
       context.store.merge(show: false) if response.type == "success"
@@ -21,7 +20,7 @@ Component.create "Edit.Container",
   submit: (e) ->
     e.preventDefault()
     return @update() && false unless @changes.empty()
-    Store.find_or_create("Messages").push { type: "warning", text: "#{@model.name.titleize} was not updated" }
+    Store.findOrCreate("Messages").push { type: "warning", text: "#{@model.name.titleize} was not updated" }
     false
   update: ->
     return @model.update @changes.get() if @model.singleton
@@ -38,9 +37,7 @@ Component.create "Edit.Container",
         <div className="panel panel-default">
           <div className="panel-heading">
             <h4>Edit {@model.name.titleize}</h4>
-            {unless @props.permanent
-              <a className="btn btn-danger pull-right" href="#" onClick={@cancel}><i className="fa fa-close" /></a>
-            }
+            <a className="btn btn-danger pull-right" href="#" onClick={@cancel}><i className="fa fa-close" /></a>
           </div>
           <div className="panel-body">
             <form className="form-horizontal" onSubmit={@submit}>

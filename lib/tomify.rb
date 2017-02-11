@@ -5,6 +5,12 @@ module Tomify
   mattr_accessor :base_controller
   self.base_controller = "ApplicationController"
 
+  mattr_accessor :admin_controller
+  self.admin_controller = "Admin::Controller"
+
+  mattr_accessor :admin_api_controller
+  self.admin_api_controller = "Admin::Api::Controller"
+
   mattr_accessor :base_mailer
   self.base_mailer = "ApplicationMailer"
 

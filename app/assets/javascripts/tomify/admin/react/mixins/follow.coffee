@@ -29,8 +29,8 @@
   setupModels: ->
     @models = @convertToHash(@followModels?() || @followModels || [])
     for key, value of @models when not (value instanceof Store)
-      store = @stores[key.lowercase] = @store.find_or_create value.capitalize, []
-      model = @models[key.lowercase] = Model.find_or_create(value)
+      store = @stores[key.lowercase] = @store.findOrCreate value.capitalize, []
+      model = @models[key.lowercase] = Model.findOrCreate(value)
       context = @
       do (context, store) ->
         context.follow model.on "all", (response) -> store.set(response.data)

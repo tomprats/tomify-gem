@@ -1,7 +1,7 @@
-module Tomify::Concerns::Dynamic::JSON
+module Tomify::Concerns::Admin::JSON
   extend ActiveSupport::Concern
 
-  include Tomify::Concerns::Dynamic
+  include Tomify::Concerns::Admin
 
   included do
     rescue_from "ActiveRecord::RecordInvalid" do |e|
@@ -13,7 +13,7 @@ module Tomify::Concerns::Dynamic::JSON
     end
 
     rescue_from "ActiveRecord::RecordNotDestroyed" do |e|
-      render json: { type: :warning, message: "#{model.name} could not be deleted" }
+      render json: { type: :warning, message: "#{model_name} could not be deleted" }
     end
   end
 
@@ -29,18 +29,18 @@ module Tomify::Concerns::Dynamic::JSON
 
   def create
     create_record
-    render json: { type: :success, data: @record, message: "#{model.name} Created" }
+    render json: { type: :success, data: @record, message: "#{model_name} Created" }
   end
 
   def update
     find_record
     update_record
-    render json: { type: :success, data: @record, message: "#{model.name} Updated" }
+    render json: { type: :success, data: @record, message: "#{model_name} Updated" }
   end
 
   def destroy
     find_record
     destroy_record
-    render json: { type: :danger, message: "#{model.name} Deleted" }
+    render json: { type: :danger, message: "#{model_name} Deleted" }
   end
 end

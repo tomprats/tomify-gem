@@ -1,0 +1,32 @@
+model = Model.findOrCreate "Page"
+model.columns = [
+  { name: "active", value: (r) -> if r.active then "Yes" else "No" },
+  { name: "rank" },
+  { name: "parent_page_id", value: (r) -> r.parent_page?.name ? "None" },
+  { name: "name" },
+  { name: "path" },
+  { name: "updated_at", value: (r) -> r.updated_at.date() },
+  { name: "actions", edit: true, destroy: true, view: (r) ->
+    <a key="visit" href="/#{r.path}" target="_blank">Visit</a>
+  }
+]
+
+model.fields = [
+  { name: "parent_page_id", type: "select", model: "Page", allow_blank: true },
+  { name: "active", type: "checkbox" },
+  { name: "root", type: "checkbox", label: "If checked, this page will be available at <a href='/' target='_blank'>#{location.origin}</a>" },
+  { name: "rank", type: "number" },
+  { name: "name" },
+  { name: "template", type: "select", options: <%= Tomify::Page.templates %> },
+  { name: "path" },
+  { name: "title" },
+  { name: "description", type: "textarea" },
+  { name: "cover_image", type: "file" },
+  { name: "share_image", type: "file" },
+  { name: "text", type: "markdown" }
+]
+
+model.findOrCreate "Import", path: "pages/imports"
+Model.Page.Import.fields = [{ name: "file", type: "file" }]
+
+Component.create "Pages.Index.Container", render: -> <Index.Container name="Page" import={true} />

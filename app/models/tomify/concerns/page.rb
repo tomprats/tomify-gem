@@ -52,6 +52,17 @@ module Tomify::Concerns::Page
         page.assign_attributes(record)
       end
     end
+
+    def admin_params
+      [
+        :parent_page_id, :sidebar_id,
+        :active, :root, :rank,
+        :path, :name, :template,
+        :title, :description,
+        :cover_image, :share_image,
+        :text
+      ]
+    end
   end
 
   def serializable_hash(options = nil)

@@ -1,9 +1,9 @@
 Component.create "New.Container",
   componentWillInitialize: ->
-    @model = Model.find_or_create @props.name
-    @store = Store.find_or_create "#{@props.name}.New"
-    @record = @store.find_or_create "Record", {}
-    @changes = @store.find_or_create "Changes", {}
+    @model = Model.findOrCreate @props.name
+    @store = Store.findOrCreate "#{@props.name}.New"
+    @record = @store.findOrCreate "Record", {}
+    @changes = @store.findOrCreate "Changes", {}
     @followStores = { store: @store, record: @record, changes: @changes }
     @followModels = (field.model for field in @model.fields when field.model)
     context = @
@@ -13,12 +13,12 @@ Component.create "New.Container",
       context.record.set({})
       context.store.merge(show: true)
     @follow @model.on "create", (response) ->
-      Store.find_or_create("Messages").push { type: response.type, text: response.message }
+      Store.findOrCreate("Messages").push { type: response.type, text: response.message }
       context.store.merge(show: false) if response.type == "success"
   submit: (e) ->
     e.preventDefault()
     if @changes.empty()
-      Store.find_or_create("Messages").push { type: "warning", text: "#{@model.name.titleize} was not created" }
+      Store.findOrCreate("Messages").push { type: "warning", text: "#{@model.name.titleize} was not created" }
     else
       @model.create @changes.get()
     false

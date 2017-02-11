@@ -1,4 +1,4 @@
-module Tomify::Concerns::Dynamic::Helpers
+module Tomify::Concerns::Admin::Helpers
   def find_records
     @records ||= model.where(search_params)
   end
@@ -19,6 +19,10 @@ module Tomify::Concerns::Dynamic::Helpers
     @record.destroy!
   end
 
+  def record_params
+    params.require(model_param).permit(model.admin_params)
+  end
+
   def search_params
     @search_params = {}
     @search_params[:created_at] = date_range(params[:created_at]) if params[:created_at]
@@ -28,6 +32,14 @@ module Tomify::Concerns::Dynamic::Helpers
 
   def model
     @model ||= controller_name.chomp("s").titleize.constantize
+  end
+
+  def model_name
+    @model_name ||= controller_name.chomp("s").titleize
+  end
+
+  def model_param
+    @model_param ||= controller_name.chomp("s")
   end
 
   def date_range(start_date, end_date = nil)

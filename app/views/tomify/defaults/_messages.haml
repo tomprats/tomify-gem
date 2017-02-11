@@ -1,6 +1,1 @@
-- flash.each do |key, value|
-  .alert.text-center(class="alert-#{key}")
-    = value
-    = link_to "#", class: "close-message btn btn-danger btn-xs pull-right" do
-      %i.fa.fa-close
-- flash.clear
+= react_component "Messages.Container", messages: flash.collect { |key, value| { type: key, text: value }}

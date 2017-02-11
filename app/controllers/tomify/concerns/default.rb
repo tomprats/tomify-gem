@@ -7,7 +7,8 @@ module Tomify::Concerns::Default
 
   included do
     add_flash_types :success, :info, :warning, :danger
-    helper_method :current_user, :pages, :page, :root_page, :setting
+    helper_method :pages, :page, :root_page, :setting
+    helper_method :current_user, :react_component
     before_action :check_token
   end
 end

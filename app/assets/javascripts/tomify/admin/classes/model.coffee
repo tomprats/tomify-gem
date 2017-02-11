@@ -4,7 +4,7 @@ class @Model extends Observer
     @namespace namespace, new @(namespace.split(".").last, options)
   constructor: (name, options = {}) ->
     @name = name ? throw "Model: Requires Name"
-    @path = "#{Tomify.Config.basePath}/#{options.path ? @name.underscore.pluralize}"
+    @path = options.path ? @name.underscore.pluralize
     @singleton = options.singleton ? false
     @requests = {}
     @setDefaultActions()
@@ -20,7 +20,7 @@ class @Model extends Observer
   requested: (action) -> @requests[action].length > 0
   request: (type, nest) ->
     name = @name.underscore
-    basePath = @path
+    basePath = "#{Tomify.Config.basePath}/#{@path}"
     (path, params) ->
       [path, params] = [params, path] if path instanceof Object
       path = if path then "#{basePath}/#{path}" else basePath

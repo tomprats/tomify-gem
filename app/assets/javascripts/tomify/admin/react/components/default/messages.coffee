@@ -1,7 +1,7 @@
 Component.create "Messages.Container",
   followStores: ["messages"]
   componentWillInitialize: ->
-    @store = Store.find_or_create "Messages", []
+    @store = Store.findOrCreate "Messages", []
     @follow @store.on "push", -> $("body").scrollTop(0)
   remove: (i) ->
     context = @

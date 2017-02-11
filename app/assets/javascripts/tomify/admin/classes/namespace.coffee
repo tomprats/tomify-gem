@@ -17,8 +17,8 @@ class @Namespace
     scope = @base
     scope = (scope ? {})[key] for key in namespace.split(".")
     scope
-  @find_or_create: (namespace, options) ->
+  @findOrCreate: (namespace, options) ->
     @find(namespace, options) || @create(namespace, options)
-  find_or_create: (namespace, options) ->
+  findOrCreate: (namespace, options) ->
     namespace = "#{@namespace}.#{namespace}"
     @constructor.find(namespace, options) || @constructor.create(namespace, options)

@@ -18,6 +18,12 @@ module Tomify::Concerns::User
     scope :admin, -> { where(admin: true) }
   end
 
+  class_methods do
+    def admin_params
+      [:admin, :email, :first_name, :last_name]
+    end
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
