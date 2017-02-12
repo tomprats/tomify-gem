@@ -4,22 +4,26 @@ Component.create "Index.Container",
     @store = Store.findOrCreate "#{@props.name}.Index"
     @records = @store.findOrCreate "Records", []
     @followStores = { store: @store, records: @records }
-    context = @
-    @follow @model.on "all", (response) ->
-      context.records.set(response.data)
-      context.setPage(1)
-    @follow @model.on "create", (response) ->
-      context.model.all() if response.type == "success"
-    @follow @model.on "update", (response) ->
-      context.model.all() if response.type == "success"
-    @follow @model.on "destroy", (response) ->
-      context.model.all() if response.type == "danger"
+    @follow @model.on "all", @modelAll
+    @follow @model.on "create", @modelCreate
+    @follow @model.on "update", @modelUpdate
+    @follow @model.on "destroy", @modelDestroy
     if @props.import
       @model.findOrCreate "Import"
-      @follow @model.Import.on "create", (response) ->
-        context.model.all() if response.type == "success"
+      @follow @model.Import.on "create", @importCreate
   componentDidMount: ->
     @model.all()
+  modelAll: (response) ->
+    @records.set(response.data)
+    @setPage(1)
+  modelCreate: (response) ->
+    @model.all() if response.type == "success"
+  modelUpdate: (response) ->
+    @model.all() if response.type == "success"
+  modelDestroy: (response) ->
+    @model.all() if response.type == "danger"
+  importCreate: (response) ->
+    @model.all() if response.type == "success"
   setPage: (page) ->
     @setState(page: 1, currentRecords: @state.records[(page*10 - 10)..page*10])
   new: (e) ->
@@ -44,7 +48,6 @@ Component.create "Index.Container",
     @model.Import.new()
     false
   render: ->
-    context = @
     <div>
       <div className="row">
         <div className="col-xs-12">
@@ -74,7 +77,7 @@ Component.create "Index.Container",
                 <tbody>
                   {for record, i in @state.records
                     <tr key={i}>
-                      {for field, j in context.model.columns
+                      {for field, j in @model.columns
                         if field.name == "actions"
                           <td key={j}>
                             {[

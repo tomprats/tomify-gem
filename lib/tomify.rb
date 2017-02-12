@@ -19,4 +19,8 @@ module Tomify
 
   mattr_accessor :base_uploader
   self.base_uploader = "ApplicationUploader"
+
+  def self.setting(name)
+    Tomify::Setting.find_by(name: name).try(:value)
+  end
 end

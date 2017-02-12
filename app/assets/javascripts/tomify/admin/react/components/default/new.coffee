@@ -2,19 +2,22 @@ Component.create "New.Container",
   componentWillInitialize: ->
     @model = Model.findOrCreate @props.name
     @store = Store.findOrCreate "#{@props.name}.New"
-    @record = @store.findOrCreate "Record", {}
-    @changes = @store.findOrCreate "Changes", {}
+    @record = @store.findOrCreate "Record"
+    @changes = @store.findOrCreate "Changes"
     @followStores = { store: @store, record: @record, changes: @changes }
     @followModels = (field.model for field in @model.fields when field.model)
-    context = @
-    @follow @model.on "edit", -> context.store.merge(show: false)
-    @follow @model.on "new", ->
-      context.changes.set({})
-      context.record.set({})
-      context.store.merge(show: true)
-    @follow @model.on "create", (response) ->
-      Store.findOrCreate("Messages").push { type: response.type, text: response.message }
-      context.store.merge(show: false) if response.type == "success"
+    @follow @model.on "new", @modelNew
+    @follow @model.on "create", @modelCreate
+    @follow @model.on "edit", @modelEdit
+  modelNew: ->
+    @changes.set({})
+    @record.set({})
+    @store.merge(show: true)
+  modelCreate: (response) ->
+    Store.findOrCreate("Messages").push { type: response.type, text: response.message }
+    @store.merge(show: false) if response.type == "success"
+  modelEdit: ->
+    @store.merge(show: false)
   submit: (e) ->
     e.preventDefault()
     if @changes.empty()
@@ -28,7 +31,6 @@ Component.create "New.Container",
     false
   render: ->
     return <div /> unless @state.store.show
-    context = @
     <div className="row">
       <div className="col-xs-12">
         <div className="panel panel-default">
@@ -38,7 +40,7 @@ Component.create "New.Container",
           </div>
           <div className="panel-body">
             <form className="form-horizontal" onSubmit={@submit}>
-              {context.field(field) for field in @model.fields}
+              {@field(field) for field in @model.fields when !field.only || ("new" in field.only)}
               <div className="col-sm-offset-2 col-sm-10">
                 <input type="submit" name="commit" value="Create #{@model.name.titleize}" className="btn btn-primary" />
               </div>

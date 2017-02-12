@@ -6,17 +6,21 @@ Component.create "Edit.Container",
     @changes = @store.findOrCreate "Changes", {}
     @followStores = { store: @store, record: @record, changes: @changes }
     @followModels = (field.model for field in @model.fields when field.model)
-    context = @
-    @follow @model.on "edit", (response) ->
-      context.changes.set({})
-      context.record.set(response.data)
-      context.store.merge(show: true)
-    @follow @model.on "update", (response) ->
-      Store.findOrCreate("Messages").push { type: response.type, text: response.message }
-    @follow @model.on "new", -> context.store.merge(show: false)
-    @follow @model.on "update", (response) ->
-      context.store.merge(show: false) if response.type == "success"
-    @follow @model.on "destroy", -> context.store.merge(show: false)
+    @follow @model.on "new", @modelNew
+    @follow @model.on "edit", @modelEdit
+    @follow @model.on "update", @modelUpdate
+    @follow @model.on "destroy", @modelDestroy
+  modelNew: ->
+    @store.merge(show: false)
+  modelEdit: (response) ->
+    @changes.set({})
+    @record.set(response.data)
+    @store.merge(show: true)
+  modelUpdate: (response) ->
+    Store.findOrCreate("Messages").push { type: response.type, text: response.message }
+    @store.merge(show: false) if response.type == "success"
+  modelDestroy: ->
+    @store.merge(show: false)
   submit: (e) ->
     e.preventDefault()
     return @update() && false unless @changes.empty()
@@ -31,7 +35,6 @@ Component.create "Edit.Container",
     false
   render: ->
     return <div /> unless @state.store.show
-    context = @
     <div className="row">
       <div className="col-xs-12">
         <div className="panel panel-default">
@@ -41,7 +44,7 @@ Component.create "Edit.Container",
           </div>
           <div className="panel-body">
             <form className="form-horizontal" onSubmit={@submit}>
-              {context.field(field) for field in @model.fields}
+              {@field(field) for field in @model.fields when !field.only || ("edit" in field.only)}
               <div className="col-sm-offset-2 col-sm-10">
                 <input type="submit" name="commit" value="Update #{@model.name.titleize}" className="btn btn-primary btn-disabled" />
               </div>

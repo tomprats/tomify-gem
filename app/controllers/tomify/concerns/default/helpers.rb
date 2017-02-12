@@ -1,6 +1,6 @@
 module Tomify::Concerns::Default::Helpers
   def setting(name)
-    Tomify::Setting.find_by(name: name).try(:value)
+    Tomify.setting(name)
   end
 
   def root_page

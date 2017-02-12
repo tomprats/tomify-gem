@@ -15,7 +15,6 @@
   - Previews
 - Models
   - Settings
-    - validate name
     - different types
   - Templates
     - App

@@ -1,10 +1,8 @@
 Component.create "Pagination",
-  setPage: (page) ->
-    context = @
-    (e) ->
-      e.preventDefault()
-      context.props.setPage(page)
-      false
+  setPage: (page, e) ->
+    e.preventDefault()
+    @props.setPage(page)
+    false
   render: ->
     first = 1
     prev = @props.page - 1
@@ -14,18 +12,18 @@ Component.create "Pagination",
     nextDisabled = next > last
     <ul className="pagination">
       <li className="pagination-first#{' disabled' if prevDisabled}">
-        <a href="#" onClick={@setPage(first)} className="fa fa-angle-double-left" />
+        <a href="#" onClick={@setPage.bind(null, first)} className="fa fa-angle-double-left" />
       </li>
       <li className="pagination-prev#{' disabled' if prevDisabled}">
-        <a href="#" onClick={@setPage(prev)} className="fa fa-angle-left" />
+        <a href="#" onClick={@setPage.bind(null, prev)} className="fa fa-angle-left" />
       </li>
       <li className="pagination-link active">
-        <a href="#" onClick={@setPage(@props.page)}>{@props.page}</a>
+        <a href="#" onClick={@setPage.bind(null, @props.page)}>{@props.page}</a>
       </li>
       <li className="pagination-next#{' disabled' if nextDisabled}">
-        <a href="#" onClick={@setPage(next)} className="fa fa-angle-right" />
+        <a href="#" onClick={@setPage.bind(null, next)} className="fa fa-angle-right" />
       </li>
       <li className="pagination-last#{' disabled' if nextDisabled}">
-        <a href="#" onClick={@setPage(@props.total)} className="fa fa-angle-double-right" />
+        <a href="#" onClick={@setPage.bind(null, @props.total)} className="fa fa-angle-double-right" />
       </li>
     </ul>

@@ -3,19 +3,16 @@ Component.create "Messages.Container",
   componentWillInitialize: ->
     @store = Store.findOrCreate "Messages", []
     @follow @store.on "push", -> $("body").scrollTop(0)
-  remove: (i) ->
-    context = @
-    (e) ->
-      e.preventDefault()
-      context.store.remove(i)
-      false
+  remove: (i, e) ->
+    e.preventDefault()
+    @store.remove(i)
+    false
   render: ->
-    context = @
     <div>
       {for message, i in @state.messages
         <div key={i} className="alert alert-#{message.type} text-center">
           {message.text}
-          <a className="btn btn-danger btn-xs pull-right" href="#" onClick={context.remove(i)}><i className="fa fa-close" /></a>
+          <a className="btn btn-danger btn-xs pull-right" href="#" onClick={@remove.bind(null, i)}><i className="fa fa-close" /></a>
         </div>
       }
     </div>
