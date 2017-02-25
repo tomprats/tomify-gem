@@ -3,9 +3,7 @@
 - App Config
   - Move local variable to Class
   - Carrierwave
-  - Flash Patch
   - Mailer Settings
-    - Initialzer
     - Config in environments
   - Application
     - Timezone

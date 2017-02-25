@@ -6,9 +6,8 @@ model.columns = [
   { name: "actions", edit: true, destroy: true }
 ]
 
-model.fields = [
-  { name: "name" },
-  { name: "file", type: "file" }
-]
+form = new Form()
+form.add "name", "text"
+form.add "file", "file"
 
-Component.create "Uploads.Index.Container", render: -> <Index.Container name="Upload" />
+Component.create "Uploads.Index.Container", render: -> <Index.Container name="Upload" form={form} />

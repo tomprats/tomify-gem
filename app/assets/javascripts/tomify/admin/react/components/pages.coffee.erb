@@ -11,22 +11,18 @@ model.columns = [
   }
 ]
 
-model.fields = [
-  { name: "parent_page_id", type: "select", model: "Page", allow_blank: true },
-  { name: "active", type: "checkbox" },
-  { name: "root", type: "checkbox", label: "If checked, this page will be available at <a href='/' target='_blank'>#{location.origin}</a>" },
-  { name: "rank", type: "number" },
-  { name: "name" },
-  { name: "template", type: "select", options: <%= Tomify::Page.templates %> },
-  { name: "path" },
-  { name: "title" },
-  { name: "description", type: "textarea" },
-  { name: "cover_image", type: "file" },
-  { name: "share_image", type: "file" },
-  { name: "text", type: "markdown" }
-]
+form = new Form()
+form.add "parent_page_id", "select", model: "Page", allow_blank: true
+form.add "active", "checkbox"
+form.add "root", "checkbox", label: "If checked, this page will be available at <a href='/' target='_blank'>#{location.origin}</a>"
+form.add "rank", "number"
+form.add "name", "text"
+form.add "template", "select", options: <%= Tomify::Page.templates %>
+form.add "path", "text"
+form.add "title", "text"
+form.add "description", "textarea"
+form.add "cover_image", "file"
+form.add "share_image", "file"
+form.add "text", "markdown"
 
-model.findOrCreate "Import", path: "pages/imports"
-Model.Page.Import.fields = [{ name: "file", type: "file" }]
-
-Component.create "Pages.Index.Container", render: -> <Index.Container name="Page" import={true} />
+Component.create "Pages.Index.Container", render: -> <Index.Container name="Page" form={form} />

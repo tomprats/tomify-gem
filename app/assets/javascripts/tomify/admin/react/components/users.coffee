@@ -9,11 +9,10 @@ model.columns = [
   { name: "actions", edit: true, destroy: true }
 ]
 
-model.fields = [
-  { name: "admin", type: "checkbox" },
-  { name: "email" },
-  { name: "first_name" },
-  { name: "last_name" }
-]
+form = new Form()
+form.add "admin", "checkbox"
+form.add "email", "text"
+form.add "first_name", "text"
+form.add "last_name", "text"
 
-Component.create "Users.Index.Container", render: -> <Index.Container name="User" />
+Component.create "Users.Index.Container", render: -> <Index.Container name="User" form={form} />

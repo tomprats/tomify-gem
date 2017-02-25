@@ -2,16 +2,15 @@ Component.create "New.Container",
   componentWillInitialize: ->
     @model = Model.findOrCreate @props.name
     @store = Store.findOrCreate "#{@props.name}.New"
-    @record = @store.findOrCreate "Record"
-    @changes = @store.findOrCreate "Changes"
-    @followStores = { store: @store, record: @record, changes: @changes }
-    @followModels = (field.model for field in @model.fields when field.model)
+    @form = @props.form.setComponent @
+    @followStores = $.extend { store: @store }, @form.stores
+    @followModels = @form.models
     @follow @model.on "new", @modelNew
     @follow @model.on "create", @modelCreate
     @follow @model.on "edit", @modelEdit
   modelNew: ->
-    @changes.set({})
-    @record.set({})
+    @form.record.set({})
+    @form.setDefaultValues()
     @store.merge(show: true)
   modelCreate: (response) ->
     Store.findOrCreate("Messages").push { type: response.type, text: response.message }
@@ -20,10 +19,10 @@ Component.create "New.Container",
     @store.merge(show: false)
   submit: (e) ->
     e.preventDefault()
-    if @changes.empty()
+    if @form.changes.empty()
       Store.findOrCreate("Messages").push { type: "warning", text: "#{@model.name.titleize} was not created" }
     else
-      @model.create @changes.get()
+      @model.create @form.changes.get()
     false
   cancel: (e) ->
     e.preventDefault()
@@ -40,7 +39,7 @@ Component.create "New.Container",
           </div>
           <div className="panel-body">
             <form className="form-horizontal" onSubmit={@submit}>
-              {@field(field) for field in @model.fields when !field.only || ("new" in field.only)}
+              {@form.render()}
               <div className="col-sm-offset-2 col-sm-10">
                 <input type="submit" name="commit" value="Create #{@model.name.titleize}" className="btn btn-primary" />
               </div>

@@ -1,6 +1,7 @@
 class Tomify::Setting < Tomify.base_record.constantize
   validates_presence_of :type, :name
   validates_uniqueness_of :name
+  validates_format_of :name, with: /\A[a-z_]+\z/, message: "can only contain lowercase letters and underscores"
   validate :type_valid?, on: :update
   validate :name_valid?, on: :update
 
@@ -32,8 +33,10 @@ class Tomify::Setting < Tomify.base_record.constantize
 
   def update_config
     case name
-    when "AWS"
+    when "aws"
       Tomify::CarrierwaveHelper.load_config
+    when "email"
+      Tomify::EmailHelper.load_config
     end
   end
 end

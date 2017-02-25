@@ -10,12 +10,17 @@ model.columns = [
   { name: "updated_at", value: (r) -> r.updated_at.date() },
   { name: "actions", edit: true, destroy: true }
 ]
+
 options = ["Boolean", "Json", "Text", "Uploader"]
 options = ({ name: option, value: "Tomify::Setting::#{option}" } for option in options)
-model.fields = [
-  { name: "type", only: ["new"], type: "select", options: options },
-  { name: "name" },
-  { name: "value" }
-]
 
-Component.create "Settings.Index.Container", render: -> <Index.Container name="Setting" />
+newForm = new Form()
+newForm.add "type", "select", options: options
+newForm.add "name", "text"
+newForm.add "value", "text"
+
+editForm = new Form()
+editForm.add "name", "text"
+editForm.add "value", "text"
+
+Component.create "Settings.Index.Container", render: -> <Index.Container name="Setting" newForm={newForm} editForm={editForm} />

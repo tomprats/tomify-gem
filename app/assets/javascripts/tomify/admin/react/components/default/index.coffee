@@ -8,9 +8,8 @@ Component.create "Index.Container",
     @follow @model.on "create", @modelCreate
     @follow @model.on "update", @modelUpdate
     @follow @model.on "destroy", @modelDestroy
-    if @props.import
-      @model.findOrCreate "Import"
-      @follow @model.Import.on "create", @importCreate
+    @newForm = @props.newForm || @props.form.copy()
+    @editForm = @props.editForm || @props.form.copy()
   componentDidMount: ->
     @model.all()
   modelAll: (response) ->
@@ -22,8 +21,6 @@ Component.create "Index.Container",
     @model.all() if response.type == "success"
   modelDestroy: (response) ->
     @model.all() if response.type == "danger"
-  importCreate: (response) ->
-    @model.all() if response.type == "success"
   setPage: (page) ->
     @setState(page: 1, currentRecords: @state.records[(page*10 - 10)..page*10])
   new: (e) ->
@@ -39,14 +36,6 @@ Component.create "Index.Container",
     @model.destroy(id).then (response) ->
       Store.findOrCreate("Messages").push { type: response.type, text: response.message }
     false
-  export: (e) ->
-    e.preventDefault()
-    window.open("data:text/json;charset=utf8,#{JSON.stringify(@state.records)}", "_blank")
-    false
-  import: (e) ->
-    e.preventDefault()
-    @model.Import.new()
-    false
   render: ->
     <div>
       <div className="row">
@@ -56,12 +45,6 @@ Component.create "Index.Container",
               <h4>
                 {@model.name.pluralize.titleize}
                 <a className="btn btn-primary btn-xs" href="#" onClick={@new}>New</a>
-                {if @props.import
-                  [
-                    <a key="export" className="btn btn-primary btn-xs" href="#" onClick={@export}>Export</a>
-                    <a key="import" className="btn btn-primary btn-xs" href="#" onClick={@import}>Import</a>
-                  ]
-                }
               </h4>
               <Pagination page="1" total={@state.records.length} setPage={@setPage} />
             </div>
@@ -99,7 +82,6 @@ Component.create "Index.Container",
           </div>
         </div>
       </div>
-      <New.Container name={@props.name} />
-      <Edit.Container name={@props.name} />
-      {<Import.Container name={@props.name} /> if @props.import}
+      <New.Container name={@props.name} form={@newForm} />
+      <Edit.Container name={@props.name} form={@editForm} />
     </div>

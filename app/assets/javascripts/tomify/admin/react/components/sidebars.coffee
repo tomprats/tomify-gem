@@ -7,11 +7,10 @@ model.columns = [
   { name: "actions", edit: true, destroy: true }
 ]
 
-model.fields = [
-  { name: "active", type: "checkbox" },
-  { name: "name" },
-  { name: "heading" },
-  { name: "text", type: "markdown" }
-]
+form = new Form()
+form.add "active", "checkbox"
+form.add "name", "text"
+form.add "heading", "text"
+form.add "text", "markdown"
 
-Component.create "Sidebars.Index.Container", render: -> <Index.Container name="Sidebar" />
+Component.create "Sidebars.Index.Container", render: -> <Index.Container name="Sidebar" form={form} />

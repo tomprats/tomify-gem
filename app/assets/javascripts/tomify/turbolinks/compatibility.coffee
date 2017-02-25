@@ -20,11 +20,9 @@ translateEvent from: "turbolinks:load", to: "page:update"
 
 loaded = false
 handleEvent "DOMContentLoaded", ->
-  defer ->
-    loaded = true
+  defer -> loaded = true
 handleEvent "turbolinks:load", ->
-  if loaded
-    dispatch("page:load")
+  dispatch("page:load") if loaded
 
 jQuery?(document).on "ajaxSuccess", (event, xhr, settings) ->
   if jQuery.trim(xhr.responseText).length > 0

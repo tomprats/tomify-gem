@@ -16,5 +16,6 @@ Tomify::Page.create(
   active: true,
   rank: 10,
   path: "home",
-  name: "Home"
+  name: "Home",
+  template: Tomify::Page.templates.first
 ) if Tomify::Page.count.zero?
