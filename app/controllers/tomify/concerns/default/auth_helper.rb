@@ -1,4 +1,4 @@
-module Tomify::Concerns::Default::AuthHelpers
+module Tomify::Concerns::Default::AuthHelper
   def not_found
     raise ActionController::RoutingError.new("Not Found")
   end

@@ -34,6 +34,12 @@ module Tomify::Concerns::Api::Helpers
     @model ||= controller_name.chomp("s").titleize.constantize
   end
 
+  def model
+    return @model if @model
+    @model = model_name.constantize if Object.const_defined? model_name
+    @model ||= "Tomify::#{model_name}".constantize
+  end
+
   def model_name
     @model_name ||= controller_name.chomp("s").titleize
   end

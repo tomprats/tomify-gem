@@ -1,4 +1,4 @@
-model = Model.findOrCreate "Setting"
+model = Model.findOrCreate "Admin.Setting"
 model.columns = [
   { name: "name" },
   { name: "type", value: (r) -> r.type.split("::").last },
@@ -15,13 +15,13 @@ model.columns = [
 options = ["Boolean", "Json", "Text", "Uploader"]
 options = ({ name: option, value: "Tomify::Setting::#{option}" } for option in options)
 
-newForm = new Form()
+newForm = new Form("horizontal")
 newForm.add "type", "select", options: options
 newForm.add "name", "text"
 newForm.add "value", "text"
 
-editForm = new Form()
+editForm = new Form("horizontal")
 editForm.add "name", "text"
 editForm.add "value", "text"
 
-Component.create "Settings.Index.Container", render: -> <Index.Container name="Setting" newForm={newForm} editForm={editForm} />
+Component.create "Admin.Settings.Index.Container", render: -> <Index.Container name="Admin.Setting" newForm={newForm} editForm={editForm} />

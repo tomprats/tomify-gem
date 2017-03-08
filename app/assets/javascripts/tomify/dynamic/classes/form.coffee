@@ -1,10 +1,11 @@
 class @Form
   copy: ->
-    form = new Form
+    form = new Form(@layout)
     form.fields = (field.copy(form) for field in @fields)
     form.models = @models
     form
-  constructor: ->
+  constructor: (layout) ->
+    @layout = layout
     @fields = []
     @models = []
   value: (name) ->
@@ -40,7 +41,7 @@ class @Form
       name = field.props.name
       value = null
       continue if record[name]?
-      switch field.type
+      switch field.props.type
         when "checkbox"
           value = true
         when "select"
@@ -51,14 +52,19 @@ class @Form
       changes[name] = value
     @changes.set(changes)
   renderField: (field) ->
-    FieldComponent = Form.Field[field.type.capitalize]
-    <div key={field.props.name} className="form-group">
-      <label className="col-sm-2 control-label" htmlFor={field.props.name}>
-        {field.props.name.titleize}
-      </label>
-      <div className="col-sm-10">
+    FieldComponent = Form.Field[field.props.type.capitalize] || Form.Field.Default
+    if @layout == "horizontal"
+      <div key={field.props.name} className="form-group">
+        <label className="col-sm-2 control-label" htmlFor={field.props.name}>
+          {field.props.name.titleize}
+        </label>
+        <div className="col-sm-10">
+          <FieldComponent {...field.props} />
+        </div>
+      </div>
+    else
+      <div key={field.props.name} className="form-group">
         <FieldComponent {...field.props} />
       </div>
-    </div>
   render: ->
     @renderField(field) for field in @fields

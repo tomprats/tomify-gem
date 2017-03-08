@@ -5,15 +5,18 @@ require "tomify/version"
 module Tomify
   mattr_accessor :controllers
   self.controllers = Constantly.new(
-    base: "TomifyController",
     admin: "Tomify::Admin::Controller",
-    admin_api: "Tomify::Api::Admin::Controller"
+    admin_api: "Tomify::Api::Admin::Controller",
+    base: "TomifyController",
+    public: "Tomify::Public::Controller",
+    public_api: "Tomify::Api::Public::Controller"
   )
 
   mattr_accessor :mailers
   self.mailers = Constantly.new(
     base: "TomifyMailer",
-    preview: "TomifyPreview"
+    preview: "TomifyPreview",
+    user: "Tomify::UserMailer"
   )
 
   mattr_accessor :models

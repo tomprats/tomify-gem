@@ -11,8 +11,8 @@ module Tomify::Concerns::User
     validates_presence_of :email, :first_name, :last_name
     validates_uniqueness_of :email
     validates_format_of :email, with: /@/i
-    validates_length_of :password, minimum: 8, allow_blank: true, on: :create
-    validates_confirmation_of :password, allow_blank: true, on: :create
+    validates_length_of :password, minimum: 8, allow_blank: true
+    validates_confirmation_of :password, allow_blank: true
 
     default_scope { order(:created_at) }
     scope :admin, -> { where(admin: true) }
@@ -21,6 +21,10 @@ module Tomify::Concerns::User
   class_methods do
     def admin_params
       [:admin, :email, :first_name, :last_name]
+    end
+
+    def public_params
+      [:email, :first_name, :last_name, :password, :password_confirmation]
     end
   end
 

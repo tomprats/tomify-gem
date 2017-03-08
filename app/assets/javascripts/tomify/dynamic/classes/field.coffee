@@ -1,7 +1,7 @@
 class @Field
   @build: (options) ->
-    props = { name: options.name }
-    switch options.type
+    props = { name: options.name, type: options.type }
+    switch props.type
       when "checkbox"
         props.label = options.label
       when "select"
@@ -11,7 +11,6 @@ class @Field
         for option in options.options || []
           props.options.push { value: option?.value ? option, name: option?.name ? option.titleize }
     field = new Field(options)
-    field.type = options.type
     field.props = props
     field.setForm(options.form)
     field

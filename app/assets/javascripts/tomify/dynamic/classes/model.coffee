@@ -5,7 +5,6 @@ class @Model extends Observer
   constructor: (name, options = {}) ->
     @name = name ? throw "Model: Requires Name"
     @path = options.path ? @name.underscore.pluralize
-    @singleton = options.singleton ? false
     @requests = {}
     @setDefaultActions()
   setAction: (name, request) ->
@@ -23,8 +22,10 @@ class @Model extends Observer
     basePath = @path
     (path, params) ->
       [path, params] = [params, path] if path instanceof Object
-      route = "#{Tomify.Config.basePath()}/#{basePath}"
-      route = "#{route}/#{path}" if path
+      route = "/api"
+      route += if location.pathname.startsWith "/admin" then "/admin" else "/public"
+      route += "/#{basePath}"
+      route += "/#{path}" if path
       if nest
         [params, nest] = [{}, params]
         params[name] = nest
@@ -33,7 +34,6 @@ class @Model extends Observer
     @setAction "find", @request "get"
     @setAction "edit", @request "get"
     @setAction "update", @request "put", true
-    return if @singleton
     @setAction "new", Request.none
     @setAction "all", @request "get"
     @setAction "where", @request "get"

@@ -1,5 +1,5 @@
 class TomifyMailer < ActionMailer::Base
-  include Tomify::Concerns::Default::Helpers
+  include Tomify::Concerns::Default::Helper
 
   prepend_view_path Tomify.root.join("app", "views", "tomify", "mailers")
   prepend_view_path Rails.root.join("app", "views", "mailers")

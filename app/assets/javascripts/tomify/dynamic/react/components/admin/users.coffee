@@ -1,4 +1,4 @@
-model = Model.findOrCreate "User"
+model = Model.findOrCreate "Admin.User"
 model.columns = [
   { name: "admin", value: (r) -> if r.admin then "Yes" else "No" },
   { name: "email" },
@@ -9,10 +9,10 @@ model.columns = [
   { name: "actions", edit: true, destroy: true }
 ]
 
-form = new Form()
+form = new Form("horizontal")
 form.add "admin", "checkbox"
 form.add "email", "text"
 form.add "first_name", "text"
 form.add "last_name", "text"
 
-Component.create "Users.Index.Container", render: -> <Index.Container name="User" form={form} />
+Component.create "Admin.Users.Index.Container", render: -> <Index.Container name="Admin.User" form={form} />

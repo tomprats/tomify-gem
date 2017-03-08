@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   scope module: :tomify do
-    root "pages#root"
+    root "public/pages#root"
 
-    resource :user, only: [:create, :edit, :update]
-    resource :session, only: [:new, :create, :destroy]
-    get :forgot_password, to: "passwords#new"
-    post :reset_password, to: "passwords#create"
-    resource :feedback, only: :create
+    scope module: :public do
+      resource :user, only: [:create, :edit, :update]
+      resource :session, only: [:new, :create, :destroy]
+      get :forgot_password, to: "passwords#new"
+      post :reset_password, to: "passwords#create"
+      resource :feedback, only: :create
+    end
 
     namespace :admin do
       root "settings#index"
@@ -26,8 +28,12 @@ Rails.application.routes.draw do
         resources :uploads, only: [:index, :create, :show, :update, :destroy]
         resources :users, only: [:index, :create, :show, :update, :destroy]
       end
+
+      namespace :public do
+        resource :user, only: [:create, :show, :update]
+      end
     end
 
-    get ":path", to: "pages#show", as: :page
+    get ":path", to: "public/pages#show", as: :page
   end
 end

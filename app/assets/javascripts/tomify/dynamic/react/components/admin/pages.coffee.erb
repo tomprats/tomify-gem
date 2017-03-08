@@ -1,4 +1,4 @@
-model = Model.findOrCreate "Page"
+model = Model.findOrCreate "Admin.Page"
 model.columns = [
   { name: "active", value: (r) -> if r.active then "Yes" else "No" },
   { name: "rank" },
@@ -12,9 +12,9 @@ model.columns = [
   }
 ]
 
-form = new Form()
-form.add "parent_id", "select", model: "Page", allowBlank: true
-form.add "sidebar_id", "select", model: "Sidebar", allowBlank: true
+form = new Form("horizontal")
+form.add "parent_id", "select", model: "Admin.Page", allowBlank: true
+form.add "sidebar_id", "select", model: "Admin.Sidebar", allowBlank: true
 form.add "active", "checkbox"
 form.add "root", "checkbox", label: "If checked, this page will be available at <a href='/' target='_blank'>#{location.origin}</a>"
 form.add "rank", "number"
@@ -27,4 +27,4 @@ form.add "cover_image", "file"
 form.add "share_image", "file"
 form.add "text", "markdown"
 
-Component.create "Pages.Index.Container", render: -> <Index.Container name="Page" form={form} />
+Component.create "Admin.Pages.Index.Container", render: -> <Index.Container name="Admin.Page" form={form} />

@@ -1,4 +1,4 @@
-module Tomify::Concerns::Pages
+class Tomify::Public::PagesController < Tomify.controllers.public
   def show
     @page = Tomify.models.page.find_by(path: params[:path]) || not_found
 

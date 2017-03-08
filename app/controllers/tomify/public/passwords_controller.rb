@@ -1,7 +1,7 @@
-module Tomify::Concerns::Passwords
+class Tomify::Public::PasswordsController < Tomify.controllers.public
   def create
     if user = Tomify.models.user.find_by(email: params[:email])
-      Tomify::UserMailer.reset_password(user).deliver_now
+      Tomify.mailers.user.reset_password(user).deliver_now
       render json: { type: :success, message: "Email Sent" }
     else
       render json: { type: :warning, message: "Email could not be found" }

@@ -1,7 +1,7 @@
-module Tomify::Concerns::Sessions
+class Tomify::Public::SessionsController < Tomify.controllers.public
   def create
     email = params[:user][:email].strip.downcase
-    user = Tomify::User.find_by(email: email)
+    user = Tomify.models.user.find_by(email: email)
     if user && user.password_digest && user.authenticate(params[:user][:password])
       session[:current_user_id] = user.id
       flash[:success] = "Welcome #{current_user.name}!"

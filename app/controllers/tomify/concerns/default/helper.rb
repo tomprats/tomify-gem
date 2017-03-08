@@ -1,4 +1,4 @@
-module Tomify::Concerns::Default::Helpers
+module Tomify::Concerns::Default::Helper
   def setting(name)
     Tomify.setting(name)
   end

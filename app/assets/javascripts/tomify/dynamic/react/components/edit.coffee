@@ -26,7 +26,6 @@ Component.create "Edit.Container",
     Store.findOrCreate("Messages").push { type: "warning", text: "#{@model.name.titleize} was not updated" }
     false
   update: ->
-    return @model.update @form.changes.get() if @model.singleton
     @model.update @form.record.get("id"), @form.changes.get()
   cancel: (e) ->
     e.preventDefault()

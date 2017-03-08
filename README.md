@@ -1,19 +1,18 @@
 # Tomify
-Short description and motivation.
 
-## Usage
-How to use my plugin.
-
-## Installation
-Add Tomify to your Gemfile:
+## Controllers
+You can override a controller in an initializer
 
 ```ruby
-gem "tomify"
+Tomify.controllers.base = "ApplicationController"
 ```
 
-And then execute:
-```bash
-$ bundle
+## Views
+You can override a default template in a layout file
+
+```haml
+- content_for :navbar_partial, "layouts/navbar"
+= render template: "tomify/layouts/application"
 ```
 
 ## License
