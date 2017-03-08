@@ -3,7 +3,7 @@ module Tomify::Concerns::Users
 
   included do
     before_action :require_user!, only: [:edit, :update]
-    before_action :not_found, only: :create, unless: "setting(:allow_signup).try(:value)"
+    before_action :not_found, only: :create, unless: "setting(:allow_signup)"
   end
 
   def create

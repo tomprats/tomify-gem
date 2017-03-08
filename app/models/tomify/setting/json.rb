@@ -4,4 +4,8 @@ class Tomify::Setting::Json < Tomify::Setting
   def value
     json
   end
+
+  def value=(value)
+    self.json = value
+  end
 end

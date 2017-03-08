@@ -9,7 +9,7 @@ class Tomify::Setting < Tomify.models.base
   before_destroy { |record| !record.name.in? self.class.required_settings }
 
   def self.required_settings
-    ["allow_signup", "name"]
+    ["allow_signup", "name", "email", "timezone"]
   end
 
   def self.admin_params
@@ -37,6 +37,8 @@ class Tomify::Setting < Tomify.models.base
       Tomify::CarrierwaveHelper.load_config
     when "email"
       Tomify::EmailHelper.load_config
+    when "timezone"
+      Tomify::TimezoneHelper.load_config
     end
   end
 end

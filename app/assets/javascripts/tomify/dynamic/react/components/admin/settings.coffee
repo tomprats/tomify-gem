@@ -5,6 +5,7 @@ model.columns = [
   { name: "value", value: (r) ->
     type = r.type.split("::").last
     return "#{r.value}" if type == "Boolean"
+    return "JSON (Don't Edit)" if type == "Json"
     r.value
   },
   { name: "updated_at", value: (r) -> r.updated_at.date() },

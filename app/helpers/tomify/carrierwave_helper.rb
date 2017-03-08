@@ -1,5 +1,5 @@
 module Tomify::CarrierwaveHelper
-  def load_config
+  def self.load_config
     return unless defined? Carrierwave
     return unless settings = Tomify.setting(:aws)
 
@@ -14,5 +14,4 @@ module Tomify::CarrierwaveHelper
       config.fog_directory = settings["bucket"]
     end
   end
-  module_function :load_config
 end

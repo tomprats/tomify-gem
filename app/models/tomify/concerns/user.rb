@@ -28,6 +28,10 @@ module Tomify::Concerns::User
     "#{first_name} #{last_name}"
   end
 
+  def token
+    tokens.first_or_create
+  end
+
   def serializable_hash(options = nil)
     options ||= {}
     super({ methods: [:name] }.update(options))

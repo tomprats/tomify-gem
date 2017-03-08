@@ -8,7 +8,18 @@ Tomify.models.user.create(
 
 if Tomify.models.setting.count.zero?
   Tomify::Setting::Text.create(name: "name", value: "Tomify")
+  Tomify::Setting::Text.create(name: "timezone", value: "Eastern Time (US & Canada)")
   Tomify::Setting::Boolean.create(name: "allow_signup", value: false)
+  Tomify::Setting::Json.create(name: "aws", value: {
+    access_key: "",
+    secret_key: "",
+    bucket: "",
+  })
+  Tomify::Setting::Json.create(name: "email", value: {
+    username: "",
+    password: "",
+    base_url: "http://localhost:3000"
+  })
 end
 
 Tomify.models.page.create(
