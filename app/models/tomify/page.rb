@@ -1,3 +1,3 @@
-class Tomify::Page < Tomify.base_record.constantize
+class Tomify::Page < Tomify.models.base
   include Tomify::Concerns::Page
 end

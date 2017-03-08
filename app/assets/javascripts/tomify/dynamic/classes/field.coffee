@@ -22,4 +22,4 @@ class @Field
   setForm: (form) ->
     @props.value = form.value.bind(form)
     @props.onChange = form.onChange.bind(form)
-    @props.options = form.options.bind(form, @props.model) if @props.model
+    @props.options = form.options.bind(form, @props) if @props.model

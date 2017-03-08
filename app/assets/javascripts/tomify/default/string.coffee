@@ -7,6 +7,9 @@ String::break = ->
 String::date = ->
   new Date(@).toLocaleDateString()
 
+String::startsWith ?= (s) -> @slice(0, s.length) == s
+String::endsWith   ?= (s) -> s != "" && @slice(-s.length) == s
+
 Object.defineProperties String.prototype,  {
   camelize: { get: ->
     word = (word.capitalize for word in @break()).join()

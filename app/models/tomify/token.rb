@@ -1,3 +1,3 @@
-class Tomify::Token < Tomify.base_record.constantize
+class Tomify::Token < Tomify.models.base
   include Tomify::Concerns::Token
 end

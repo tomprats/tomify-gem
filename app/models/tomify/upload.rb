@@ -1,3 +1,3 @@
-class Tomify::Upload < Tomify.base_record.constantize
+class Tomify::Upload < Tomify.models.base
   include Tomify::Concerns::Upload
 end

@@ -1,2 +1,2 @@
-class Tomify::Admin::UploadsController < Tomify.admin_controller.constantize
+class Tomify::Admin::UploadsController < Tomify.controllers.admin
 end

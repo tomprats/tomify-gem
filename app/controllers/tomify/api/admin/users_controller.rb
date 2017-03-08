@@ -1,4 +1,4 @@
-class Tomify::Admin::Api::UsersController < Tomify.admin_api_controller.constantize
+class Tomify::Api::Admin::UsersController < Tomify.controllers.admin_api
   def destroy
     @record = model.find(params[:id])
     return super unless @record.email == "tom@tomify.me" || @record.id == current_user.id

@@ -1,2 +1,2 @@
-class Tomify::Admin::PagesController < Tomify.admin_controller.constantize
+class Tomify::Admin::PagesController < Tomify.controllers.admin
 end

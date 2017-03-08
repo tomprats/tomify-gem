@@ -1,7 +1,7 @@
-module Tomify::Concerns::Admin::JSON
+module Tomify::Concerns::Api::JSON
   extend ActiveSupport::Concern
 
-  include Tomify::Concerns::Admin
+  include Tomify::Concerns::Api::Helpers
 
   included do
     rescue_from "ActiveRecord::RecordInvalid" do |e|

@@ -1,3 +1,3 @@
-class Tomify::SessionsController < Tomify.base_controller.constantize
+class Tomify::SessionsController < Tomify.controllers.base
   include Tomify::Concerns::Sessions
 end

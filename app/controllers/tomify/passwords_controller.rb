@@ -1,2 +1,3 @@
-class Tomify::PasswordsController < Tomify.base_controller.constantize
+class Tomify::PasswordsController < Tomify.controllers.base
+  include Tomify::Concerns::Passwords
 end

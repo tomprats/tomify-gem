@@ -1,2 +1,2 @@
-class Tomify::Admin::UsersController < Tomify.admin_controller.constantize
+class Tomify::Admin::UsersController < Tomify.controllers.admin
 end

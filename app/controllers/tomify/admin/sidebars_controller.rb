@@ -1,2 +1,2 @@
-class Tomify::Admin::SidebarsController < Tomify.admin_controller.constantize
+class Tomify::Admin::SidebarsController < Tomify.controllers.admin
 end

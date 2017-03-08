@@ -1,3 +1,3 @@
-class Tomify::Sidebar < Tomify.base_record.constantize
+class Tomify::Sidebar < Tomify.models.base
   include Tomify::Concerns::Sidebar
 end

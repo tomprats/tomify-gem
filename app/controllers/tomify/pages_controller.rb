@@ -1,3 +1,3 @@
-class Tomify::PagesController < Tomify.base_controller.constantize
+class Tomify::PagesController < Tomify.controllers.base
   include Tomify::Concerns::Pages
 end

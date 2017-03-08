@@ -1,4 +1,4 @@
-module Tomify::Concerns::Admin::Helpers
+module Tomify::Concerns::Api::Helpers
   def find_records
     @records ||= model.where(search_params)
   end
@@ -20,7 +20,7 @@ module Tomify::Concerns::Admin::Helpers
   end
 
   def record_params
-    params.require(model_param).permit(model.admin_params)
+    params.require(model_param).permit(model.default_params)
   end
 
   def search_params

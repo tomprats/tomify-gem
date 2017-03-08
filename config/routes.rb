@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
     resource :user, only: [:create, :edit, :update]
     resource :session, only: [:new, :create, :destroy]
-    get :forgot_password, to: "sessions#forgot_password"
-    post :reset_password, to: "sessions#reset_password"
+    get :forgot_password, to: "passwords#new"
+    post :reset_password, to: "passwords#create"
     resource :feedback, only: :create
 
     namespace :admin do
@@ -16,8 +16,10 @@ Rails.application.routes.draw do
       resources :sidebars, only: :index
       resources :uploads, only: :index
       resources :users, only: :index
+    end
 
-      namespace :api do
+    namespace :api do
+      namespace :admin do
         resources :pages, only: [:index, :create, :show, :update, :destroy]
         resources :settings, only: [:index, :create, :show, :update, :destroy]
         resources :sidebars, only: [:index, :create, :show, :update, :destroy]

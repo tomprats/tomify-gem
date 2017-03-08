@@ -14,6 +14,9 @@ module Tomify::Concerns::Users
     render json: { type: :warning, message: e.record.errors.full_messages.join(", ") }
   end
 
+  def edit
+  end
+
   def update
     current_user.update!(user_params)
     render json: { type: :success, message: "Profile Updated" }

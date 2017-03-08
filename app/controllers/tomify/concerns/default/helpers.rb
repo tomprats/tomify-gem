@@ -4,7 +4,7 @@ module Tomify::Concerns::Default::Helpers
   end
 
   def root_page
-    Tomify::Page.root
+    Tomify.models.page.root
   end
 
   def page
@@ -12,6 +12,6 @@ module Tomify::Concerns::Default::Helpers
   end
 
   def pages
-    Tomify::Page.active
+    Tomify.models.page.active
   end
 end

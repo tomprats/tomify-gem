@@ -20,14 +20,15 @@ class @Model extends Observer
   requested: (action) -> @requests[action].length > 0
   request: (type, nest) ->
     name = @name.underscore
-    basePath = "#{Tomify.Config.basePath}/#{@path}"
+    basePath = @path
     (path, params) ->
       [path, params] = [params, path] if path instanceof Object
-      path = if path then "#{basePath}/#{path}" else basePath
+      route = "#{Tomify.Config.basePath()}/#{basePath}"
+      route = "#{route}/#{path}" if path
       if nest
         [params, nest] = [{}, params]
         params[name] = nest
-      Request[type](path, params)
+      Request[type](route, params)
   setDefaultActions: ->
     @setAction "find", @request "get"
     @setAction "edit", @request "get"

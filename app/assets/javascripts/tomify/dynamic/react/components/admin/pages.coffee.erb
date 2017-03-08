@@ -2,7 +2,8 @@ model = Model.findOrCreate "Page"
 model.columns = [
   { name: "active", value: (r) -> if r.active then "Yes" else "No" },
   { name: "rank" },
-  { name: "parent_page_id", value: (r) -> r.parent_page?.name ? "None" },
+  { name: "parent_id", value: (r) -> r.parent?.name ? "None" },
+  { name: "sidebar_id", value: (r) -> r.sidebar?.name ? "None" },
   { name: "name" },
   { name: "path" },
   { name: "updated_at", value: (r) -> r.updated_at.date() },
@@ -12,7 +13,8 @@ model.columns = [
 ]
 
 form = new Form()
-form.add "parent_page_id", "select", model: "Page", allow_blank: true
+form.add "parent_id", "select", model: "Page", allowBlank: true
+form.add "sidebar_id", "select", model: "Sidebar", allowBlank: true
 form.add "active", "checkbox"
 form.add "root", "checkbox", label: "If checked, this page will be available at <a href='/' target='_blank'>#{location.origin}</a>"
 form.add "rank", "number"

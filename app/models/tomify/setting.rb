@@ -1,4 +1,4 @@
-class Tomify::Setting < Tomify.base_record.constantize
+class Tomify::Setting < Tomify.models.base
   validates_presence_of :type, :name
   validates_uniqueness_of :name
   validates_format_of :name, with: /\A[a-z_]+\z/, message: "can only contain lowercase letters and underscores"

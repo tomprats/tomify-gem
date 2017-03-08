@@ -6,6 +6,7 @@ module Tomify::Concerns::Default
   include Tomify::Concerns::Default::ReactHelper
 
   included do
+    protect_from_forgery with: :exception
     add_flash_types :success, :info, :warning, :danger
     helper_method :pages, :page, :root_page, :setting
     helper_method :current_user, :react_component

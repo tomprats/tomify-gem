@@ -4,7 +4,7 @@ module Tomify::Concerns::Default::AuthHelpers
   end
 
   def current_user
-    @current_user ||= Tomify::User.find_by(id: session[:current_user_id])
+    @current_user ||= Tomify.models.user.find_by(id: session[:current_user_id])
   end
 
   def require_user!
@@ -16,7 +16,7 @@ module Tomify::Concerns::Default::AuthHelpers
   end
 
   def check_token
-    return unless params[:token] && user = Tomify::User.joins(:tokens).find_by(tokens: { uuid: params[:token] })
+    return unless params[:token] && user = Tomify.models.user.joins(:tokens).find_by(tokens: { uuid: params[:token] })
     session[:current_user_id] = user.id
   end
 end

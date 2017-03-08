@@ -1,4 +1,4 @@
-class UserPreview < TomifyPreview
+class UserPreview < Tomify.mailers.preview
   def invite
     UserMailer.invite(user)
   end

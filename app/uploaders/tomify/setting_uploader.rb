@@ -1,4 +1,4 @@
-class Tomify::SettingUploader < Tomify.base_uploader.constantize
+class Tomify::SettingUploader < Tomify.uploaders.base
   # in uploader
   # if image
   #   width ||= 1000000000

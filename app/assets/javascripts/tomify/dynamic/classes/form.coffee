@@ -17,9 +17,12 @@ class @Form
       else e.target.value
     return @changes.remove(name) if @record.get(name) == change[name]
     @changes.merge(change)
-  options: (model) ->
-    for record in @component.state[model.lowercase]
-      { value: record.id, name: record.name }
+  options: (props) ->
+    options = []
+    options.push { value: "", name: "None" } if props.allowBlank
+    for record in @component.state[props.model.lowercase]
+      options.push { value: record.id, name: record.name }
+    options
   add: (name, type, options = {}) ->
     options = $.extend { type: type, name: name, form: @ }, options
     @fields.push Field.build(options)
@@ -33,11 +36,19 @@ class @Form
   setDefaultValues: ->
     record = @record.get()
     changes = {}
-    for field in @fields when field.type == "select"
+    for field in @fields
       name = field.props.name
-      options = field.props.options?() || field.props.options
-      value = options[0]?.value
-      changes[name] = value if value != record[name]
+      value = null
+      continue if record[name]?
+      switch field.type
+        when "checkbox"
+          value = true
+        when "select"
+          continue if field.allowBlank
+          options = field.props.options?() || field.props.options
+          value = options[0]?.value
+      continue unless value?
+      changes[name] = value
     @changes.set(changes)
   renderField: (field) ->
     FieldComponent = Form.Field[field.type.capitalize]

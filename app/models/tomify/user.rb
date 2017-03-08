@@ -1,3 +1,3 @@
-class Tomify::User < Tomify.base_record.constantize
+class Tomify::User < Tomify.models.base
   include Tomify::Concerns::User
 end

@@ -1,4 +1,4 @@
-class Tomify::UserMailer < Tomify.base_mailer.constantize
+class Tomify::UserMailer < Tomify.mailers.base
   def invite(user)
     @user = user
 

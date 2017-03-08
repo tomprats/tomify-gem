@@ -1,6 +1,6 @@
 module Tomify::Concerns::Passwords
   def create
-    if user = Tomify::User.find_by(email: params[:email])
+    if user = Tomify.models.user.find_by(email: params[:email])
       Tomify::UserMailer.reset_password(user).deliver_now
       render json: { type: :success, message: "Email Sent" }
     else

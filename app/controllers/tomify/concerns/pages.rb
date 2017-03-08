@@ -1,6 +1,6 @@
 module Tomify::Concerns::Pages
   def show
-    @page = Tomify::Page.find_by(path: params[:path]) || not_found
+    @page = Tomify.models.page.find_by(path: params[:path]) || not_found
 
     render_template
   end
