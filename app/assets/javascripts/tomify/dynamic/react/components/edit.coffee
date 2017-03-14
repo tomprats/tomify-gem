@@ -3,8 +3,6 @@ Component.create "Edit.Container",
     @model = Model.findOrCreate @props.name
     @store = Store.findOrCreate "#{@props.name}.Edit"
     @form = @props.form.setComponent @
-    @followStores = $.extend { store: @store }, @form.stores
-    @followModels = @form.models
     @follow @model.on "new", @modelNew
     @follow @model.on "edit", @modelEdit
     @follow @model.on "update", @modelUpdate
@@ -16,14 +14,14 @@ Component.create "Edit.Container",
     @form.setDefaultValues()
     @store.merge(show: true)
   modelUpdate: (response) ->
-    Store.findOrCreate("Messages").push { type: response.type, text: response.message }
+    message type: response.type, text: response.message
     @store.merge(show: false) if response.type == "success"
   modelDestroy: ->
     @store.merge(show: false)
   submit: (e) ->
     e.preventDefault()
     return @update() && false unless @form.changes.empty()
-    Store.findOrCreate("Messages").push { type: "warning", text: "#{@model.name.titleize} was not updated" }
+    message type: "warning", text: "#{@model.name.titleize} was not updated"
     false
   update: ->
     @model.update @form.record.get("id"), @form.changes.get()

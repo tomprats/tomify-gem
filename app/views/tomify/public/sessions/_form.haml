@@ -1,9 +1,0 @@
-= form_for :user, url: session_path, remote: true, html: { id: "new-session-form" } do |f|
-  .form-group
-    = f.email_field :email, placeholder: "Email", class: "form-control"
-  .form-group
-    = f.password_field :password, placeholder: "Password", class: "form-control"
-  .form-group
-    = f.submit "Sign In", class: "btn btn-primary"
-  .form-group
-    %small= link_to "Forgot Password?", forgot_password_path

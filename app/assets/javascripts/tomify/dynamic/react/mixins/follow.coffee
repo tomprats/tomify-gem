@@ -1,8 +1,12 @@
 @FollowMixin = {
+  getInitialSetup: ->
+    @followModels ?= []
+    @followStores ?= []
   getInitialState: ->
     @events ?= []
     @setupStores()
     @setupModels()
+    @stores["store"] = @store if @store
     state = {}
     state[key] = store.get() for key, store of @stores
     state

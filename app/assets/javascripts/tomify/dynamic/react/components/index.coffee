@@ -3,7 +3,7 @@ Component.create "Index.Container",
     @model = Model.findOrCreate @props.name
     @store = Store.findOrCreate "#{@props.name}.Index"
     @records = @store.findOrCreate "Records", []
-    @followStores = { store: @store, records: @records }
+    @followStores.push records: @records
     @follow @model.on "all", @modelAll
     @follow @model.on "create", @modelCreate
     @follow @model.on "update", @modelUpdate
@@ -34,7 +34,7 @@ Component.create "Index.Container",
   destroy: (id, e) ->
     e.preventDefault()
     @model.destroy(id).then (response) ->
-      Store.findOrCreate("Messages").push { type: response.type, text: response.message }
+      message type: response.type, text: response.message
     false
   render: ->
     <div>

@@ -33,6 +33,8 @@ class @Form
     @record = component.store.findOrCreate "Record", {}
     @changes = component.store.findOrCreate "Changes", {}
     @stores = { record: @record, changes: @changes }
+    component.followModels.push model for model in @models
+    component.followStores.push BuildObject(key, value) for key, value of @stores
     @
   setDefaultValues: ->
     record = @record.get()

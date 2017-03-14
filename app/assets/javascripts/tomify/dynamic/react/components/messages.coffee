@@ -1,7 +1,10 @@
+Store.create "Messages", []
+
 Component.create "Messages.Container",
   followStores: ["messages"]
   componentWillInitialize: ->
-    @store = Store.findOrCreate "Messages", []
+    @store = Store.find "Messages"
+    @store.push message for message in @props.messages
     @follow @store.on "push", -> $("body").scrollTop(0)
   remove: (i, e) ->
     e.preventDefault()

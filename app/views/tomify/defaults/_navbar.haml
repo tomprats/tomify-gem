@@ -11,7 +11,7 @@
         - if current_user
           %li= link_to "Profile", edit_user_path
         - elsif setting(:allow_signup)
-          %li= link_to "Login", new_session_path
+          %li= link_to "Login", session_path
         - pages.each do |page|
           - children = page.children.where(active: true)
           - if children.empty?
@@ -26,4 +26,4 @@
                 - children.each do |child|
                   %li= link_to child.name, page_path(child.path)
         - if current_user
-          %li= link_to "Logout", session_path, method: :delete
+          %li= link_to "Logout", "#", class: "sign-out"

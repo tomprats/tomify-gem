@@ -1,0 +1,5 @@
+:javascript
+  window.env = Object.assign({
+    settings: #{Tomify.models.setting.public.to_json},
+    user: #{current_user.to_json}
+  }, window.env || {})

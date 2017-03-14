@@ -7,27 +7,25 @@ form.add "password_confirmation", "password"
 
 Component.create "Public.Users.Edit",
   componentWillInitialize: ->
-    @model = Model.findOrCreate "Public.User", path: "user"
+    @model = Model.find "Public.User"
     @store = Store.findOrCreate "Public.Users.Edit"
     @form = form.setComponent @
-    @followStores = $.extend { store: @store }, @form.stores
-    @followModels = @form.models
-    @follow @model.on "edit", @modelEdit
     @follow @model.on "update", @modelUpdate
-  componentDidMount: ->
-    @model.edit()
-  modelEdit: (response) ->
-    @form.record.set(response.data)
+    @follow user.on "change", @userChange
+    @userChange()
+  userChange: ->
+    @form.record.set user.get()
     @form.setDefaultValues()
   modelUpdate: (response) ->
-    Store.findOrCreate("Messages").push { type: response.type, text: response.message }
+    message type: response.type, text: response.message
+    user.merge @form.changes.get() if response.type == "success"
   submit: (e) ->
     e.preventDefault()
-    return @update() && false unless @form.changes.empty()
-    Store.findOrCreate("Messages").push { type: "warning", text: "Profile was not updated" }
+    if @form.changes.empty()
+      message type: "warning", text: "Profile was not updated"
+    else
+      @model.update @form.changes.get()
     false
-  update: ->
-    @model.update @form.changes.get()
   render: ->
     <div className="container-fluid">
       <div className="row text-center">

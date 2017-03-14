@@ -3,8 +3,6 @@ Component.create "New.Container",
     @model = Model.findOrCreate @props.name
     @store = Store.findOrCreate "#{@props.name}.New"
     @form = @props.form.setComponent @
-    @followStores = $.extend { store: @store }, @form.stores
-    @followModels = @form.models
     @follow @model.on "new", @modelNew
     @follow @model.on "create", @modelCreate
     @follow @model.on "edit", @modelEdit
@@ -13,14 +11,14 @@ Component.create "New.Container",
     @form.setDefaultValues()
     @store.merge(show: true)
   modelCreate: (response) ->
-    Store.findOrCreate("Messages").push { type: response.type, text: response.message }
+    message type: response.type, text: response.message
     @store.merge(show: false) if response.type == "success"
   modelEdit: ->
     @store.merge(show: false)
   submit: (e) ->
     e.preventDefault()
     if @form.changes.empty()
-      Store.findOrCreate("Messages").push { type: "warning", text: "#{@model.name.titleize} was not created" }
+      message type: "warning", text: "#{@model.name.titleize} was not created"
     else
       @model.create @form.changes.get()
     false

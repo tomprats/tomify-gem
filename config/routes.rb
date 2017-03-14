@@ -3,11 +3,8 @@ Rails.application.routes.draw do
     root "public/pages#root"
 
     scope module: :public do
-      resource :user, only: [:create, :edit, :update]
-      resource :session, only: [:new, :create, :destroy]
-      get :forgot_password, to: "passwords#new"
-      post :reset_password, to: "passwords#create"
-      resource :feedback, only: :create
+      resource :user, only: :edit
+      resource :session, only: :show
     end
 
     namespace :admin do
@@ -31,6 +28,8 @@ Rails.application.routes.draw do
 
       namespace :public do
         resource :user, only: [:create, :show, :update]
+        resource :session, only: [:create, :destroy]
+        resource :password, only: :create
       end
     end
 
