@@ -9,8 +9,8 @@ module Tomify::Concerns::User
     after_create :send_invite, unless: :password_digest
 
     validates_presence_of :email, :first_name, :last_name
-    validates_uniqueness_of :email
-    validates_format_of :email, with: /@/i
+    validates_uniqueness_of :email, allow_blank: true
+    validates_format_of :email, with: /@/i, allow_blank: true
     validates_length_of :password, minimum: 8, allow_blank: true
     validates_confirmation_of :password, allow_blank: true
 
@@ -37,8 +37,8 @@ module Tomify::Concerns::User
   end
 
   def serializable_hash(options = nil)
-    options ||= {}
-    super({ methods: [:name] }.update(options))
+    options = { methods: [:name] } if options.blank?
+    super options
   end
 
   private

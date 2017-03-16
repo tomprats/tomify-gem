@@ -12,7 +12,7 @@ You can override a default template in a layout file
 
 ```haml
 - content_for :navbar_partial, "layouts/navbar"
-= render template: "tomify/layouts/application"
+= render "tomify/layouts/application"
 ```
 
 ## License

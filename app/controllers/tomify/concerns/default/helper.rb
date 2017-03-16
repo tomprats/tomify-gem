@@ -10,8 +10,4 @@ module Tomify::Concerns::Default::Helper
   def page
     @page || root_page
   end
-
-  def pages
-    Tomify.models.page.active
-  end
 end

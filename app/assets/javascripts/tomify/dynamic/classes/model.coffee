@@ -1,10 +1,12 @@
 class @Model extends Observer
   @base: Model
   @create: (namespace, options) ->
-    @namespace namespace, new @(namespace.split(".").last, options)
-  constructor: (name, options = {}) ->
-    @name = name ? throw "Model: Requires Name"
+    @namespace namespace, new @(namespace, options)
+  constructor: (namespace, options = {}) ->
+    @name = namespace.split(".").last ? throw "Model: Requires Name"
+    @prefix = namespace.split(".").first.lowercase
     @path = options.path ? @name.underscore.pluralize
+    @path = "/api/#{@prefix}/#{@path}"
     @requests = {}
     @setDefaultActions()
   setAction: (name, request) ->
@@ -22,9 +24,7 @@ class @Model extends Observer
     basePath = @path
     (path, params) ->
       [path, params] = [params, path] if path instanceof Object
-      route = "/api"
-      route += if location.pathname.startsWith "/admin" then "/admin" else "/public"
-      route += "/#{basePath}"
+      route = basePath
       route += "/#{path}" if path
       if nest
         [params, nest] = [{}, params]

@@ -51,8 +51,8 @@ module Tomify::Concerns::Page
   end
 
   def serializable_hash(options = nil)
-    options ||= {}
-    super({ include: [:parent, :sidebar] }.update(options))
+    options = { include: [:parent, :sidebar] } if options.blank?
+    super(options)
   end
 
   private

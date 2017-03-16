@@ -1,9 +1,8 @@
 %body(class="#{action_name} #{controller_name} #{controller_name}-#{action_name}")
-  = tomify_render_for :header
-  = tomify_render_for :admin_navbar
-  = tomify_render_for :navbar
-  = tomify_render_for :messages
-  = tomify_render_for :container
-  = tomify_render_for :footer
-  = tomify_render_for :analytics
-  = tomify_render_for :env
+  = tomify_render_for :header, :layout
+  = tomify_render_for :navbar, :layout
+  = tomify_render_for :messages, :layout
+  = tomify_render_for :container, :layout
+  = tomify_render_for :footer, :layout
+  = tomify_render_for :env, :layout
+  = tomify_render_for :analytics, :layout

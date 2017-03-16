@@ -11,14 +11,14 @@ Component.create "Public.Users.Edit",
     @store = Store.findOrCreate "Public.Users.Edit"
     @form = form.setComponent @
     @follow @model.on "update", @modelUpdate
-    @follow user.on "change", @userChange
+    @follow Store.find("User").on "change", @userChange
     @userChange()
   userChange: ->
-    @form.record.set user.get()
+    @form.record.set Store.find("User").get()
     @form.setDefaultValues()
   modelUpdate: (response) ->
     message type: response.type, text: response.message
-    user.merge @form.changes.get() if response.type == "success"
+    Store.find("User").merge @form.changes.get() if response.type == "success"
   submit: (e) ->
     e.preventDefault()
     if @form.changes.empty()

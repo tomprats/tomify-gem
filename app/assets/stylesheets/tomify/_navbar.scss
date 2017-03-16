@@ -13,12 +13,6 @@
   .navbar-brand img { height: 100%; }
 }
 
-.navbar.center .nav {
-  display: inline-block;
-  float: none;
-  vertical-align: top;
-}
-
 .navbar, .alert {
   margin-bottom: 0;
 
@@ -38,4 +32,12 @@
 
 .container-fluid {
   margin-top: 20px;
+}
+
+@media screen and (min-width: $screen-sm) {
+  .navbar.center .nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+  }
 }

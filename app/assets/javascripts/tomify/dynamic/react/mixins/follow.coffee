@@ -29,7 +29,7 @@
     @stores = @convertToHash(@followStores?() || @followStores || [])
     for key, value of @stores when not (value instanceof Store)
       store = @stores[key.lowercase] = Store.find(value.capitalize)
-      throw "Component: Invalid Store (#{storeKey.capitalize})" unless store?
+      throw "Component: Invalid Store (#{value.capitalize})" unless store?
   setupModels: ->
     @models = @convertToHash(@followModels?() || @followModels || [])
     for key, value of @models when not (value instanceof Store)
