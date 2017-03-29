@@ -2,9 +2,6 @@ module Tomify::Concerns::Page
   extend ActiveSupport::Concern
 
   included do
-    mount_uploader :cover_image, CoverImageUploader
-    mount_uploader :share_image, ShareImageUploader
-
     belongs_to :sidebar
     belongs_to :parent, class_name: self
     has_many :children, class_name: self, foreign_key: :parent_id

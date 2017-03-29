@@ -1,4 +1,4 @@
-//= require tomify
+//= require tomify-default
 //= require tomify/dynamic/classes/namespace
 //= require tomify/dynamic/classes/observer
 //= require react
