@@ -11,7 +11,7 @@ String::startsWith ?= (s) -> @slice(0, s.length) == s
 String::endsWith   ?= (s) -> s != "" && @slice(-s.length) == s
 
 String::transform = (method) ->
-  string = @replace(/(?!^)([A-Z])/g, "_$1").lowercase
+  string = @replace(/![\._-]([A-Z])/, "_$1").lowercase
   string = string.splitAndJoin "-", method
   string = string.splitAndJoin "_", method
   string = string.splitAndJoin ".", method
@@ -25,8 +25,7 @@ String::splitAndJoin = (separator, method) ->
 
 Object.defineProperties String.prototype,  {
   camelize: { get: ->
-    word = (word.capitalize for word in @break()).join()
-    word.charAt(0).lowercase + word.slice(1)
+    @transform (word) -> word.charAt(0).toLowerCase() + word.slice(1)
   },
   capitalize: { get: ->
     @transform (word) -> word.charAt(0).toUpperCase() + word.slice(1)

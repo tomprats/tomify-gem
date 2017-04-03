@@ -28,13 +28,13 @@
   setupStores: ->
     @stores = @convertToHash(@followStores?() || @followStores || [])
     for key, value of @stores when not (value instanceof Store)
-      store = @stores[key.lowercase] = Store.find(value.capitalize)
-      throw "Component: Invalid Store (#{value.capitalize})" unless store?
+      store = @stores[key] = Store.find(value)
+      throw "Component: Invalid Store (#{value})" unless store?
   setupModels: ->
     @models = @convertToHash(@followModels?() || @followModels || [])
     for key, value of @models when not (value instanceof Store)
-      store = @stores[key.lowercase] = @store.findOrCreate value.capitalize, []
-      model = @models[key.lowercase] = Model.findOrCreate(value)
+      store = @stores[key.camelize] = @store.findOrCreate value, []
+      model = @models[key.camelize] = Model.findOrCreate(value)
       context = @
       do (context, store) ->
         context.follow model.on "all", (response) -> store.set(response.data)
@@ -46,6 +46,6 @@
         key = Object.keys(item)[0]
         hash[key] = item[key]
       else
-        hash[item] = item
+        hash[item] = item.capitalize
     hash
 }

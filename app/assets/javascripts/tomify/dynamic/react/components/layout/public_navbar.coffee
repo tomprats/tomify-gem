@@ -1,5 +1,5 @@
 Component.create "Layout.PublicNavbar",
-  followStores: ["user", pages: "navbar.public"]
+  followStores: ["user", pages: "Navbar.Public"]
   componentWillInitialize: ->
     env = Store.find "Env"
     Store.create "Navbar.Public", env.get().navbar.public || []

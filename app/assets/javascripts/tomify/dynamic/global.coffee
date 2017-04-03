@@ -1,3 +1,9 @@
+params = {}
+query = window.location.search[1..]
+for param in query.split("&")
+  [key, value] = param.split("=")
+  params[decodeURIComponent(key)] = decodeURIComponent(value)
+Store.create "Params", params
 Store.create "Messages", []
 Store.create "Settings", []
 Store.create "User", {}

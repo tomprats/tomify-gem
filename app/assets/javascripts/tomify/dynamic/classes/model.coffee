@@ -4,6 +4,7 @@ class @Model extends Observer
     @namespace namespace, new @(namespace, options)
   constructor: (namespace, options = {}) ->
     @name = namespace.split(".").last ? throw "Model: Requires Name"
+    @param = options.param ? @name.underscore
     @prefix = namespace.split(".").first.lowercase
     @path = options.path ? @name.underscore.pluralize
     @path = "/api/#{@prefix}/#{@path}"
@@ -20,7 +21,7 @@ class @Model extends Observer
         context.trigger name, response
   requested: (action) -> @requests[action].length > 0
   request: (type, nest) ->
-    name = @name.underscore
+    param = @param
     basePath = @path
     (path, params) ->
       [path, params] = [params, path] if path instanceof Object
@@ -28,7 +29,7 @@ class @Model extends Observer
       route += "/#{path}" if path
       if nest
         [params, nest] = [{}, params]
-        params[name] = nest
+        params[param] = nest
       Request[type](route, params)
   setDefaultActions: ->
     @setAction "find", @request "get"

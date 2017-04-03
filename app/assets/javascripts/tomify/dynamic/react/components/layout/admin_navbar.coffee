@@ -1,5 +1,5 @@
 Component.create "Layout.AdminNavbar",
-  followStores: ["user", pages: "navbar.admin"]
+  followStores: ["user", pages: "Navbar.Admin"]
   componentWillInitialize: ->
     env = Store.find "Env"
     Store.create "Navbar.Admin", env.get().navbar.admin || []
