@@ -26,17 +26,30 @@ Component.create "Public.Users.Edit",
     else
       @model.update @form.changes.get()
     false
+  show: (e) ->
+    e.preventDefault()
+    Model.findOrCreate("Public.User").show()
+  destroy: (e) ->
+    e.preventDefault()
+    Model.find("Public.User").destroy().then (response) ->
+      return redirect response.redirect if response.type == "success"
+      message type: response.type, text: response.message
+    false
   render: ->
-    <div className="container-fluid">
-      <div className="row text-center">
-        <div className="col-md-4 col-md-offset-4">
-          <h3>Edit Profile</h3>
-          <form onSubmit={@submit}>
-            {@form.render()}
-            <div className="form-group">
-              <input type="submit" name="commit" value="Save" className="btn btn-primary" />
-            </div>
-          </form>
+    <div>
+      <h3>Edit Profile</h3>
+      <form onSubmit={@submit}>
+        {@form.render()}
+        <div className="form-group">
+          <div className="btn-group">
+            <input type="submit" name="commit" value="Save" className="btn btn-primary" />
+            <a href="#" onClick={@show} className="btn btn-default">Back</a>
+          </div>
         </div>
-      </div>
+        <div className="form-group">
+          <small>
+            <a href="#" onClick={@destroy} data-confirm="Are you sure you want to permanently delete your account?">Delete</a>
+          </small>
+        </div>
+      </form>
     </div>

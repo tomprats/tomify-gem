@@ -3,5 +3,7 @@ class @Component extends Namespace
   @create: (namespace, component) ->
     component.displayName ?= namespace
     component.mixins = @defaultMixins.concat(component.mixins || [])
-    @namespace namespace, React.createClass(component)
+    value = @namespace namespace, React.createClass(component)
+    @public namespace
+    value
   @defaultMixins: [WillInitializeMixin, FollowMixin]

@@ -1,6 +1,4 @@
 Component.create "Public.Sessions.Show",
-  getInitialState: ->
-    { forgotPassword: false }
   componentWillInitialize: ->
     @follow Model.find("Public.Session").on "new", @newSession
     @follow Model.find("Public.Password").on "new", @newPassword

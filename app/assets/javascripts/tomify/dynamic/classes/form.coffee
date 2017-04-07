@@ -1,6 +1,6 @@
 class @Form
   copy: ->
-    form = new Form(@layout)
+    form = new Form @layout
     form.fields = (field.copy(form) for field in @fields)
     form.models = @models
     form
@@ -28,10 +28,11 @@ class @Form
     options = $.extend { type: type, name: name, form: @ }, options
     @fields.push Field.build(options)
     @models.push options.model if options.model
-  setComponent: (component) ->
+  setComponent: (component, store) ->
+    store ?= component.store
     @component = component
-    @record = component.store.findOrCreate "Record", {}
-    @changes = component.store.findOrCreate "Changes", {}
+    @record = store.findOrCreate "Record", {}
+    @changes = store.findOrCreate "Changes", {}
     @stores = { record: @record, changes: @changes }
     component.followModels.push model for model in @models
     component.followStores.push BuildObject(key, value) for key, value of @stores
@@ -57,10 +58,10 @@ class @Form
     FieldComponent = Form.Field[field.props.type.capitalize] || Form.Field.Default
     if @layout == "horizontal"
       <div key={field.props.name} className="form-group">
-        <label className="col-sm-2 control-label" htmlFor={field.props.name}>
+        <label className="col-sm-3 control-label" htmlFor={field.props.name}>
           {field.props.name.titleize}
         </label>
-        <div className="col-sm-10">
+        <div className="col-sm-9">
           <FieldComponent {...field.props} />
         </div>
       </div>

@@ -11,7 +11,7 @@ Component.create "Layout.Messages",
     <div>
       {for message, i in @state.messages
         <div key={i} className="alert alert-#{message.type} text-center">
-          {message.text}
+          <span dangerouslySetInnerHTML={__html: message.text} />
           <a className="btn btn-danger btn-xs pull-right" href="#" onClick={@remove.bind(null, i)}><i className="fa fa-close" /></a>
         </div>
       }

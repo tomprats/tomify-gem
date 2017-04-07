@@ -1,6 +1,7 @@
 class @Field
   @build: (options) ->
     props = { name: options.name, type: options.type }
+    props.placeholder = options.placeholder || options.name.titleize
     switch props.type
       when "checkbox"
         props.label = options.label

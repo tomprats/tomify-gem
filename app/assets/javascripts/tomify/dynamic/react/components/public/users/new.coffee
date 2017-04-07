@@ -14,7 +14,7 @@ Component.create "Public.Users.New",
     @form = form.setComponent @
     @follow @model.on "create", @modelCreate
   modelCreate: (response) ->
-    return window.location.replace "/" if response.type == "success"
+    return redirect response.redirect if response.type == "success"
     message type: response.type, text: response.message
   submit: (e) ->
     e.preventDefault()

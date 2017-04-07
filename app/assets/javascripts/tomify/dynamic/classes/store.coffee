@@ -24,7 +24,7 @@ class @Store extends Observer
     @set(item for item in data when item?)
   get: (field) ->
     throw "Store: Invalid Data Type" unless @isDefined()
-    return @data if @isString() && !field
+    return @data if @isBoolean() || @isString()
     data = $.extend(@data.constructor(), @data)
     if field then data[field] else data
   empty: ->
@@ -34,4 +34,5 @@ class @Store extends Observer
   isDefined: -> @data?
   isObject: -> @data instanceof Object
   isArray: -> @data instanceof Array
+  isBoolean: -> $.type(@data) == "boolean"
   isString: -> $.type(@data) == "string"

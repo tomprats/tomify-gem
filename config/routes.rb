@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     root "public/pages#root"
 
     scope module: :public do
-      resource :user, only: :edit
+      resource :profile, only: :show
       resource :session, only: :show
     end
 
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       end
 
       namespace :public do
-        resource :user, only: [:create, :show, :update]
+        resource :user, only: [:create, :show, :update, :destroy]
         resource :session, only: [:create, :destroy]
         resource :password, only: :create
       end

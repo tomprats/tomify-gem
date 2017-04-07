@@ -19,7 +19,7 @@
           state[key] = store.get()
           context.setState(state)
         context.events.push store.on("change", callback)
-    model.all() for key, model in @models when !model.requested("all")
+    model.all() for key, model of @models when !model.requested("all")
   componentWillUnmount: ->
     event.off() for event in @events
   follow: (event) ->
@@ -33,6 +33,7 @@
   setupModels: ->
     @models = @convertToHash(@followModels?() || @followModels || [])
     for key, value of @models when not (value instanceof Store)
+      delete @models[key]
       store = @stores[key.camelize] = @store.findOrCreate value, []
       model = @models[key.camelize] = Model.findOrCreate(value)
       context = @

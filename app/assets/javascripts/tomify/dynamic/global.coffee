@@ -16,6 +16,7 @@ env.on "change", ->
 
 $ -> Store.find("Env").set(window.env)
 
+@redirect = (path) -> location.assign path || "/"
 @message = (message) -> Store.find("Messages").push message
 @setting = (name) ->
   setting = Store.find("Settings").get().find (setting) -> setting.name == name

@@ -7,7 +7,8 @@ Component.create "Layout.PublicNavbar",
   logout: (e) ->
     e.preventDefault()
     Model.find("Public.Session").destroy().then (response) ->
-      window.location.replace "/" if response.type == "success"
+      return redirect response.redirect if response.type == "success"
+      message type: response.type, text: response.message
   link: (page) ->
     <li key={page.name}>
       <a href="/#{page.path}">{page.name}</a>
@@ -27,7 +28,7 @@ Component.create "Layout.PublicNavbar",
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
             {if @state.user.id
-              @link(name: "Profile", path: "user/edit")
+              @link(name: "Profile", path: "profile")
             else if setting "allow_signup"
               @link(name: "Login", path: "session")
             }
