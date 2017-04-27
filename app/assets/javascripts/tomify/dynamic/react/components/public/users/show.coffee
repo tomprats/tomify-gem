@@ -6,18 +6,17 @@ Component.create "Public.Users.Show",
   render: ->
     <div>
       <h3>Profile</h3>
-      <div className="row">
-        <div className="col-sm-6 text-right"><b>First Name:</b></div>
-        <div className="col-sm-6 text-left">{@state.user.first_name}</div>
-      </div>
-      <div className="row">
-        <div className="col-sm-6 text-right"><b>Last Name:</b></div>
-        <div className="col-sm-6 text-left">{@state.user.last_name}</div>
-      </div>
-      <div className="row">
-        <div className="col-sm-6 text-right"><b>Member Since:</b></div>
-        <div className="col-sm-6 text-left">{@state.user.created_at.date()}</div>
+      <div className="media text-left">
+        <div className="media-body">
+          <h4 className="media-heading">{@state.user.name}</h4>
+          <div><b>Email:</b> {@state.user.email}</div>
+          <div><b>Member Since:</b> {@state.user.created_at.date()}</div>
+        </div>
       </div>
       <br />
-      <a href="#" onClick={@edit} className="btn btn-primary">Edit</a>
+      <div className="row">
+        <div className="btn-group">
+          <a href="#" onClick={@edit} className="btn btn-primary">Edit</a>
+        </div>
+      </div>
     </div>

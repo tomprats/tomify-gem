@@ -6,6 +6,7 @@ module Tomify::Concerns::Default::EnvHelper
         admin: admin_pages,
         public: public_pages
       },
+      pages: pages,
       settings: public_settings,
       user: current_user
     }
@@ -15,10 +16,12 @@ module Tomify::Concerns::Default::EnvHelper
     [
       { name: "App", path: "admin/settings" },
       { name: "Pages", path: "admin/pages" },
-      { name: "Sidebars", path: "admin/sidebars" },
-      { name: "Uploads", path: "admin/uploads" },
       { name: "Users", path: "admin/users" }
     ]
+  end
+
+  def pages
+    Tomify.models.page.all.as_json(only: [:active, :name, :path, :root, :template, :parent_id])
   end
 
   def public_pages

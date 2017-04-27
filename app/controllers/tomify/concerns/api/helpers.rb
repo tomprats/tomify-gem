@@ -32,7 +32,7 @@ module Tomify::Concerns::Api::Helpers
 
   def model
     return @model if @model
-    @model = model_name.constantize if Object.const_defined? model_name
+    @model = model_name.constantize rescue nil
     @model ||= "Tomify::#{model_name}".constantize
   end
 
