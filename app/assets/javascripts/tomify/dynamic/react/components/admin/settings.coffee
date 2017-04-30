@@ -1,6 +1,7 @@
 model = Model.findOrCreate "Admin.Setting"
 model.columns = [
   { name: "name" },
+  { name: "public", value: (r) -> if r.public then "Yes" else "No" },
   { name: "type", value: (r) -> r.type.split("::").last },
   { name: "value", value: (r) ->
     type = r.type.split("::").last
@@ -17,10 +18,12 @@ options = ({ name: option, value: "Tomify::Setting::#{option}" } for option in o
 
 newForm = new Form("horizontal")
 newForm.add "type", "select", options: options
+newForm.add "public", "checkbox"
 newForm.add "name", "text"
 newForm.add "value", "text"
 
 editForm = new Form("horizontal")
+editForm.add "public", "checkbox"
 editForm.add "name", "text"
 editForm.add "value", "text"
 

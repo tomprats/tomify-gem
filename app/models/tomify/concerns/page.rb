@@ -2,9 +2,9 @@ module Tomify::Concerns::Page
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :sidebar, class_name: Tomify.models.sidebar
-    belongs_to :parent, class_name: self
-    has_many :children, class_name: self, foreign_key: :parent_id
+    belongs_to :sidebar, class_name: Tomify.models.sidebar.to_s, optional: true
+    belongs_to :parent, class_name: self.to_s, optional: true
+    has_many :children, class_name: self.to_s, foreign_key: :parent_id
 
     before_validation :format_path
     before_validation :require_root, if: :root_changed?

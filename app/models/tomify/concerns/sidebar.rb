@@ -2,7 +2,7 @@ module Tomify::Concerns::Sidebar
   extend ActiveSupport::Concern
 
   included do
-    has_many :pages, class_name: Tomify.models.page
+    has_many :pages, class_name: Tomify.models.page.to_s
     validates_presence_of :name
 
     scope :active, -> { where(active: true) }

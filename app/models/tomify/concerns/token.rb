@@ -2,7 +2,7 @@ module Tomify::Concerns::Token
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :user, class_name: Tomify.models.user
+    belongs_to :user, class_name: Tomify.models.user.to_s
 
     before_create :create_uuid
 
