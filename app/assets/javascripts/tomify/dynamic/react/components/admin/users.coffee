@@ -4,6 +4,8 @@ model.columns = [
   { name: "email" },
   { name: "first_name" },
   { name: "last_name" },
+  { name: "invited", value: (r) -> if r.invited then "Yes" else "No" },
+  { name: "verified", value: (r) -> if r.verified then "Yes" else "No" },
   { name: "created_at", value: (r) -> r.created_at.date() },
   { name: "updated_at", value: (r) -> r.updated_at.date() },
   { name: "actions", edit: true, destroy: true }

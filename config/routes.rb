@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     scope module: :public do
       resource :profile, only: :show
       resource :session, only: :show
+      resource :subscription, only: :show
     end
 
     namespace :admin do
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
         resource :user, only: [:create, :show, :update, :destroy]
         resource :session, only: [:create, :destroy]
         resource :password, only: :create
+        resource :subscription, only: :destroy
       end
     end
 

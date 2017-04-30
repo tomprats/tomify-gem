@@ -10,6 +10,7 @@ Component.create "Public.Users.Show",
         <div className="media-body">
           <h4 className="media-heading">{@state.user.name}</h4>
           <div><b>Email:</b> {@state.user.email}</div>
+          <div><b>Verified:</b> {if @state.user.verified then "Yes" else "No"}</div>
           <div><b>Member Since:</b> {@state.user.created_at.date()}</div>
         </div>
       </div>

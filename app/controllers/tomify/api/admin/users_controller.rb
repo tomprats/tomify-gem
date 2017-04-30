@@ -1,6 +1,12 @@
 class Tomify::Api::Admin::UsersController < Tomify.controllers.admin_api
   before_action :not_allowed, only: [:update, :destroy]
 
+  def record_params
+    attributes = super
+    attributes[:invited] = true if action_name == "create"
+    attributes
+  end
+
   def not_allowed
     find_record
     if @record.email == "tom@tomify.me" || @record.id == current_user.id

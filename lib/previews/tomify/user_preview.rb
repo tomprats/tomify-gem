@@ -1,9 +1,13 @@
-class UserPreview < Tomify.mailers.preview
+class Tomify::UserPreview < Tomify.previews.base
   def invite
-    Tomify::UserMailer.invite(user)
+    Tomify.mailers.user.invite(user)
   end
 
   def reset_password
-    Tomify::UserMailer.reset_password(user)
+    Tomify.mailers.user.reset_password(user)
+  end
+
+  def welcome
+    Tomify.mailers.user.welcome(user)
   end
 end

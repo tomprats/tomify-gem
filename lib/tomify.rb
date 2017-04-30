@@ -15,7 +15,6 @@ module Tomify
   mattr_accessor :mailers
   self.mailers = Constantly.new(
     base: "TomifyMailer",
-    preview: "TomifyPreview",
     user: "Tomify::UserMailer"
   )
 
@@ -24,7 +23,16 @@ module Tomify
     base: "TomifyRecord",
     page: "Tomify::Page",
     setting: "Tomify::Setting",
+    sidebar: "Tomify::Sidebar",
+    subscription: "Tomify::Subscription",
+    token: "Tomify::Token",
     user: "Tomify::User"
+  )
+
+  mattr_accessor :previews
+  self.previews = Constantly.new(
+    base: "Tomify::Preview",
+    user: "Tomify::UserPreview"
   )
 
   mattr_accessor :uploaders

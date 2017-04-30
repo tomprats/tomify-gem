@@ -10,4 +10,10 @@ class Tomify::UserMailer < Tomify.mailers.base
 
     mail to: @user.email, subject: "Reset Password"
   end
+
+  def welcome(user)
+    @user = user
+
+    mail to: @user.email, subject: "Welcome!"
+  end
 end

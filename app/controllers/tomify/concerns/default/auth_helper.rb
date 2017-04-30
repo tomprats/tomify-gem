@@ -16,7 +16,11 @@ module Tomify::Concerns::Default::AuthHelper
   end
 
   def check_token
-    return unless params[:token] && user = Tomify.models.user.joins(:tokens).find_by(tokens: { uuid: params[:token] })
+    return unless params[:token]
+    token = { uuid: params[:token], name: params[:from] }
+    user = Tomify.models.user.joins(:tokens).find_by(tokens: token)
+    return unless user
+    user.update(verified: true) if token[:name] == "email"
     session[:current_user_id] = user.id
   end
 end

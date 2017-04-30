@@ -1,0 +1,3 @@
+- if @_message.to.length == 1
+  To unsubscribe from all #{setting(:name)} emails
+  = link_to "click here", subscription_url(email: @_message.to.first)
