@@ -6,8 +6,7 @@ Component.create "Layout.Analytics",
     return unless code = setting "google_analytics_code"
 
     window.GoogleAnalyticsObject = "ga"
-    window.ga = (args...) -> window[window.GoogleAnalyticsObject] args...
-    window?[window.GoogleAnalyticsObject] ?= (args...) ->
+    window[window.GoogleAnalyticsObject] ?= (args...) ->
       api = window[window.GoogleAnalyticsObject]
       (api.q or= []).push args
       return

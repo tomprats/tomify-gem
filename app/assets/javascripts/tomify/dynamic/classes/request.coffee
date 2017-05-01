@@ -9,7 +9,7 @@ class @Request
   @ajax: (options) ->
     options.url = options.url.assign(options.data)
     if options.type in ["POST", "PUT"]
-      $.extend options, {
+      Object.assign options, {
         data: @formData(new FormData(), options.data),
         cache: false,
         processData: false,

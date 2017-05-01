@@ -1,7 +1,7 @@
 .container-fluid
   .row.text-center
     .col-md-8.col-md-offset-2
-      .page= @page.text_to_html
+      .page= record.text_to_html
       - if contact_email = setting(:contact_email)
         %p
           = link_to "mailto:#{contact_email}", target: :_blank do

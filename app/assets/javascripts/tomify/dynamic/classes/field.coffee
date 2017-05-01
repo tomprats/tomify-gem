@@ -16,10 +16,16 @@ class @Field
     field.setForm(options.form)
     field
   copy: (form) ->
-    Field.build $.extend({}, @options, { form: form })
+    Field.build Object.assign({}, @options, { form: form })
   constructor: (options) ->
     @options = options
   setForm: (form) ->
     @props.value = form.value.bind(form)
     @props.onChange = form.onChange.bind(form)
     @props.options = form.options.bind(form, @props) if @props.model
+  show: ->
+    record = @options.form.record.get()
+    changes = @options.form.changes.get()
+    return @options.if(record, changes) if @options.if
+    return !@options.unless(record, changes) if @options.unless
+    true

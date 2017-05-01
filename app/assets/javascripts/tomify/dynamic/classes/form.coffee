@@ -25,7 +25,7 @@ class @Form
       options.push { value: record.id, name: record.name }
     options
   add: (name, type, options = {}) ->
-    options = $.extend { type: type, name: name, form: @ }, options
+    options = Object.assign { type: type, name: name, form: @ }, options
     @fields.push Field.build(options)
     @models.push options.model if options.model
   setComponent: (component, store) ->
@@ -70,4 +70,4 @@ class @Form
         <FieldComponent {...field.props} />
       </div>
   render: ->
-    @renderField(field) for field in @fields
+    @renderField(field) for field in @fields when field.show()

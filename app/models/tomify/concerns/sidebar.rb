@@ -3,7 +3,8 @@ module Tomify::Concerns::Sidebar
 
   included do
     has_many :pages, class_name: Tomify.models.page.to_s
-    validates_presence_of :name
+
+    validates_presence_of :name, :template
 
     scope :active, -> { where(active: true) }
 
@@ -12,7 +13,7 @@ module Tomify::Concerns::Sidebar
 
   class_methods do
     def admin_params
-      [:active, :name, :heading, :text]
+      [:active, :name, :heading, :template, :text]
     end
   end
 end

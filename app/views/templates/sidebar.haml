@@ -1,0 +1,4 @@
+.panel.panel-success
+  - if record.try(:heading)
+    .panel-heading= record.heading
+  .panel-body= record.text_to_html

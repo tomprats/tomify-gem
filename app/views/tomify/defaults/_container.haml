@@ -1,3 +1,8 @@
+- sidebar = @page.sidebar if @page&.sidebar&.active
 .container-fluid
   .row
-    .col-md-12= yield
+    - if sidebar
+      .col-md-8= yield
+      .col-md-4.sidebar= render template: "templates/#{sidebar.template}", locals: { record: sidebar }
+    - else
+      .col-md-12= yield

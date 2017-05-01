@@ -17,6 +17,6 @@ class Tomify::Public::PagesController < Tomify.controllers.public
     when "default"
     end
 
-    render "templates/#{template}", layout: true
+    render "templates/#{template}", layout: true, locals: { record: @page }
   end
 end

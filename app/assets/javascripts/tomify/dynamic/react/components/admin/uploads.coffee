@@ -6,7 +6,7 @@ model.columns = [
   { name: "actions", edit: true, destroy: true }
 ]
 
-form = new Form("horizontal")
+form = new Form "horizontal"
 form.add "name", "text"
 form.add "file", "file"
 

@@ -11,21 +11,22 @@ class @Store extends Observer
   merge: (data) ->
     throw "Store: Invalid Data Type" unless @isObject()
     @trigger "merge", data
-    @set($.extend({}, @get(), data))
+    @set Object.assign({}, @get(), data)
   push: (data) ->
     throw "Store: Invalid Data Type" unless @isArray()
     @trigger "push", data
-    @set(@get().concat([data]))
+    @set @get().concat([data])
   remove: (field) ->
     throw "Store: Invalid Data Type" unless @isObject()
     @trigger "remove", data
     data = @get()
     delete data[field]
-    @set(item for item in data when item?)
+    data = (item for item in data when item?) if @isArray()
+    @set data
   get: (field) ->
     throw "Store: Invalid Data Type" unless @isDefined()
     return @data if @isBoolean() || @isString()
-    data = $.extend(@data.constructor(), @data)
+    data = Object.assign @data.constructor(), @data
     if field then data[field] else data
   empty: ->
     return @data.length == 0 if @isArray()

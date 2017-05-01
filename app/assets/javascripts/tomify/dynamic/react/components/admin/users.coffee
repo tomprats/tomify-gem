@@ -11,7 +11,7 @@ model.columns = [
   { name: "actions", edit: true, destroy: true }
 ]
 
-form = new Form("horizontal")
+form = new Form "horizontal"
 form.add "admin", "checkbox"
 form.add "email", "text"
 form.add "first_name", "text"

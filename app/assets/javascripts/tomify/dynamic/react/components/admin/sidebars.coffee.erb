@@ -7,9 +7,10 @@ model.columns = [
   { name: "actions", edit: true, destroy: true }
 ]
 
-form = new Form("horizontal")
+form = new Form "horizontal"
 form.add "active", "checkbox"
 form.add "name", "text"
+form.add "template", "select", options: <%= Tomify::Page.templates %>
 form.add "heading", "text"
 form.add "text", "markdown"
 

@@ -18,7 +18,7 @@ class Tomify::Setting < Tomify.models.base
   end
 
   def self.admin_params
-    [:type, :name, :public, :value, :json]
+    [:type, :name, :public, :value, json: {}]
   end
 
   def serializable_hash(options = nil)
