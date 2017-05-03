@@ -17,6 +17,7 @@ module Tomify::Concerns::Default::EnvHelper
       { name: "App", path: "admin/settings" },
       { name: "Pages", path: "admin/pages" },
       { name: "Sidebars", path: "admin/sidebars" },
+      { name: "Uploads", path: "admin/uploads" },
       { name: "Users", path: "admin/users" }
     ]
   end

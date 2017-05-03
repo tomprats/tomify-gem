@@ -36,7 +36,11 @@ module Tomify
   )
 
   mattr_accessor :uploaders
-  self.uploaders = Constantly.new(base: "TomifyUploader")
+  self.uploaders = Constantly.new(
+    base: "TomifyUploader",
+    file: "Tomify::FileUploader",
+    setting: "Tomify::SettingUploader"
+  )
 
   def self.root
     Pathname.new Gem::Specification.find_by_name("tomify").gem_dir

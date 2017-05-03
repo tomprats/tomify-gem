@@ -2,7 +2,7 @@ module Tomify::Concerns::Upload
   extend ActiveSupport::Concern
 
   included do
-    mount_uploader :file, Tomify::FileUploader
+    mount_uploader :file, Tomify.uploaders.file
 
     before_validation :set_model
     before_validation :validate_content_type, on: :update, if: :content_type_changed?
