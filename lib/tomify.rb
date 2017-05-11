@@ -20,6 +20,7 @@ module Tomify
 
   mattr_accessor :models
   self.models = Constantly.new(
+    activity: "Tomify::Activity",
     base: "TomifyRecord",
     page: "Tomify::Page",
     setting: "Tomify::Setting",

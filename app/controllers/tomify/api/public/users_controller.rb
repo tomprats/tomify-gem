@@ -5,6 +5,7 @@ class Tomify::Api::Public::UsersController < Tomify.controllers.public_api
 
   def create
     session[:current_user_id] = Tomify.models.user.create!(record_params).id
+    current_user.activities.create(action: action_name, controller: controller_name)
     render json: { type: :success }, success: "Welcome #{current_user.name}!"
   rescue ActiveRecord::RecordInvalid => e
     render json: { type: :warning, message: e.record.errors.full_messages.join(", ") }
@@ -12,6 +13,7 @@ class Tomify::Api::Public::UsersController < Tomify.controllers.public_api
 
   def update
     current_user.update!(record_params)
+    current_user.activities.create(action: action_name, controller: controller_name)
     render json: { type: :success, message: "Profile Updated" }
   rescue ActiveRecord::RecordInvalid => e
     render json: { type: :warning, message: e.record.errors.full_messages.join(", ") }
@@ -19,6 +21,7 @@ class Tomify::Api::Public::UsersController < Tomify.controllers.public_api
 
   def destroy
     flash[:danger] = "Goodbye #{current_user.name}"
+    current_user.activities.create(action: action_name, controller: controller_name)
     find_record
     destroy_record
     render json: { type: :success }

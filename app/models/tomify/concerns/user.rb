@@ -3,6 +3,7 @@ module Tomify::Concerns::User
 
   included do
     has_secure_password validations: false
+    has_many :activities, class_name: Tomify.models.activity.to_s, as: :trackable
     has_many :tokens, class_name: Tomify.models.token.to_s, dependent: :destroy
 
     before_validation :format_email
