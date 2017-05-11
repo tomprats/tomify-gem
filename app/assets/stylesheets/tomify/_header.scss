@@ -1,0 +1,34 @@
+.header {
+  &.container-fluid {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .header-image {
+    display: inline-block;
+    height: 100%;
+    img { height: $header; }
+  }
+  .header-text {
+    line-height: $header;
+    text-align: right;
+    * {
+      margin: 0;
+      line-height: $header;
+    }
+  }
+  .header-center {
+    text-align: center;
+    .header-text { text-align: center; }
+  }
+}
+
+@media screen and (max-width: $screen-sm) {
+  .header {
+    text-align: center;
+    .header-image img {
+      height: auto;
+      max-width: 100%;
+    }
+    .header-text { text-align: center; }
+  }
+}

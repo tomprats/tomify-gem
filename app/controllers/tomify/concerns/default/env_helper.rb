@@ -34,6 +34,6 @@ module Tomify::Concerns::Default::EnvHelper
   end
 
   def public_settings
-    Tomify.models.setting.public.as_json(only: [:name, :value])
+    Tomify.models.setting.where(public: true).as_json(only: [:name, :value])
   end
 end

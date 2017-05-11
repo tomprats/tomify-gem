@@ -1,7 +1,3 @@
 class Tomify::SettingUploader < Tomify.uploaders.base
-  # in uploader
-  # if image
-  #   width ||= 1000000000
-  #   height ||= -1
-  #   resize_to_fill width, height
+  process resize_to_fit: [1000000000, 100]
 end

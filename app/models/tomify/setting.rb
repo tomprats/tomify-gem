@@ -9,10 +9,6 @@ class Tomify::Setting < Tomify.models.base
   after_commit :update_config
   before_destroy { |record| !record.name.in? self.class.required_settings }
 
-  def self.public
-    where(public: true)
-  end
-
   def self.required_settings
     ["allow_signup", "aws", "name", "email", "timezone"]
   end

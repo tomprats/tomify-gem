@@ -2,27 +2,31 @@ Component.create "Layout.Header",
   render: ->
     image = setting "header_image"
     text = setting "header_text"
-    return <div /> unless image && text
+    return <div /> unless image || text
 
-    <div className="navbar navbar-default center header">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-8 col-lg-offset-2">
+    image = image && <div className="header-image">
+      <a href="/">
+        <img src={image.url} alt="Logo" />
+      </a>
+    </div>
+
+    text = text && <div className="header-text">
+      <h3>{text}</h3>
+    </div>
+
+    <div className="container-fluid header">
+      <div className="row">
+        <div className="col-md-8 col-md-offset-2">
+          {if image && text
             <div className="row">
-              <div className="col-sm-3">
-                <div className="navbar-header">
-                  <a href="/" class="navbar-brand">
-                    <img src={image.url} alt="Logo" />
-                  </a>
-                </div>
-              </div>
-              <div className="col-sm-9">
-                <div className="navbar-text">
-                  <h3>{text}</h3>
-                </div>
-              </div>
+              <div className="col-sm-3">{image}</div>
+              <div className="col-sm-9">{text}</div>
             </div>
-          </div>
+          else
+            <div className="header-center">
+              {if image then image else text}
+            </div>
+          }
         </div>
       </div>
     </div>
