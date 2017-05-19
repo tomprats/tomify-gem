@@ -45,6 +45,17 @@ module Tomify::Concerns::Page
         :text
       ]
     end
+
+    def for_env
+      all.as_json(only: [:active, :name, :path, :root, :template, :parent_id])
+    end
+
+    def for_navbar
+      where(parent_id: nil).as_json(
+        only: [:active, :name, :path],
+        include: [children: { only: [:active, :name, :path] }]
+      )
+    end
   end
 
   def serializable_hash(options = nil)

@@ -17,6 +17,10 @@ class Tomify::Setting < Tomify.models.base
     [:type, :name, :public, :value, json: {}]
   end
 
+  def self.for_env
+    Tomify.models.setting.where(public: true).as_json(only: [:name, :value])
+  end
+
   def serializable_hash(options = nil)
     options ||= {}
     super({ methods: [:type] }.update(options))

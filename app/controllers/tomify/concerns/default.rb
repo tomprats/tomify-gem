@@ -4,6 +4,7 @@ module Tomify::Concerns::Default
   include Tomify::Concerns::Default::Helper
   include Tomify::Concerns::Default::AuthHelper
   include Tomify::Concerns::Default::EnvHelper
+  include Tomify::Concerns::Default::NavbarHelper
   include Tomify::Concerns::Default::ReactHelper
 
   included do

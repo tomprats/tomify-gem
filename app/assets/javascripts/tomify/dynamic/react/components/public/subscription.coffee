@@ -13,20 +13,18 @@ Component.create "Public.Subscription",
     e.preventDefault()
     @model.destroy subscription: { email: @state.email }
   render: ->
-    <div className="container-fluid">
-      <div className="row text-center">
-        <div className="col-md-4 col-md-offset-4">
-          <h3>Unsubscribe</h3>
-          {if @state.unsubscribed
-            <p>{@state.message}</p>
-          else
-            <div>
-              <p>
-                By clicking Submit, <strong>{@state.email}</strong> will be no longer recieve the majority of emails from {setting "name"}.
-              </p>
-              <a href="#" onClick={@destroy} className="btn btn-danger" data-confirm="Are you sure?">Submit</a>
-            </div>
-          }
-        </div>
+    <div className="row text-center">
+      <div className="col-md-4 col-md-offset-4">
+        <h3>Unsubscribe</h3>
+        {if @state.unsubscribed
+          <p>{@state.message}</p>
+        else
+          <div>
+            <p>
+              By clicking Submit, <strong>{@state.email}</strong> will be no longer recieve the majority of emails from {setting "name"}.
+            </p>
+            <a href="#" onClick={@destroy} className="btn btn-danger" data-confirm="Are you sure?">Submit</a>
+          </div>
+        }
       </div>
     </div>

@@ -13,14 +13,12 @@ Component.create "Public.Profile",
     e.preventDefault()
     Model.findOrCreate("Public.User").edit()
   render: ->
-    <div className="container-fluid">
-      <div className="row text-center">
-        <div className="col-md-4 col-md-offset-4">
-          {if @state.edit
-            <Public.Users.Edit />
-          else
-            <Public.Users.Show />
-          }
-        </div>
+    <div className="row text-center">
+      <div className="col-md-4 col-md-offset-4">
+        {if @state.edit
+          <Public.Users.Edit />
+        else
+          <Public.Users.Show />
+        }
       </div>
     </div>
