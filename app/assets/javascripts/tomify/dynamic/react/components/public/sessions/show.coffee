@@ -9,11 +9,11 @@ Component.create "Public.Sessions.Show",
   render: ->
     <div className="row text-center">
       {if @state.newPassword
-        <div className="col-md-4 col-md-offset-4">
+        <div className="dynamic-sm">
           <Public.Passwords.New />
         </div>
       else if setting "allow_signup"
-        <div className="col-md-8 col-md-offset-2">
+        <div className="dynamic-lg">
           <div className="row">
             <div className="col-md-6">
               <Public.Sessions.New />
@@ -24,7 +24,7 @@ Component.create "Public.Sessions.Show",
           </div>
         </div>
       else
-        <div className="col-md-4 col-md-offset-4">
+        <div className="dynamic-sm">
           <Public.Sessions.New />
         </div>
       }

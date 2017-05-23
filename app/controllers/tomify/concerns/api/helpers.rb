@@ -1,6 +1,6 @@
 module Tomify::Concerns::Api::Helpers
   def find_records
-    @records ||= model.where(search_params)
+    @records ||= model.where(search_options)
   end
 
   def find_record
@@ -12,27 +12,23 @@ module Tomify::Concerns::Api::Helpers
   end
 
   def update_record
-    @record.update!(record_params)
+    record.update!(record_params)
   end
 
   def destroy_record
-    @record.destroy!
+    record.destroy!
   end
 
-  def record_params
-    params.require(model_param).permit(model.default_params)
-  end
+  # Helpers
+  def date_range(start_date, end_date = nil)
+    start_date = DateTime.strptime(start_date, "%D")
+    end_date = end_date ? DateTime.strptime(end_date, "%D") : DateTime.now
 
-  def search_params
-    @search_params = {}
-    @search_params[:created_at] = date_range(params[:created_at]) if params[:created_at]
-    @search_params[:updated_at] = date_range(params[:updated_at]) if params[:updated_at]
-    @search_params
+    (start_date.beginning_of_day)..(end_date.end_of_day)
   end
 
   def model
-    return @model if @model
-    @model = model_name.constantize rescue nil
+    @model ||= model_name.constantize rescue nil
     @model ||= "Tomify::#{model_name}".constantize
   end
 
@@ -44,10 +40,34 @@ module Tomify::Concerns::Api::Helpers
     @model_param ||= controller_name.chomp("s")
   end
 
-  def date_range(start_date, end_date = nil)
-    start_date = DateTime.strptime(start_date, "%D")
-    end_date = end_date ? DateTime.strptime(end_date, "%D") : DateTime.now
+  def record
+    @record
+  end
 
-    (start_date.beginning_of_day)..(end_date.end_of_day)
+  def records
+    @records
+  end
+
+  def record_params
+    @record_params ||= params.require(model_param).permit(permitted_attributes)
+  end
+
+  def recursive_options(association, base, depth)
+    return base if depth.zero?
+    options = base.dup
+    options[:include] ||= []
+    options[:include] << { association => recursive_options(association, base, depth - 1) }
+    options
+  end
+
+  def search_options
+    @search_options = {}
+    @search_options[:created_at] = date_range(params[:created_at]) if params[:created_at]
+    @search_options[:updated_at] = date_range(params[:updated_at]) if params[:updated_at]
+    @search_options
+  end
+
+  def serializable_options
+    @serializable_options ||= {}
   end
 end

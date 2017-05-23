@@ -1,5 +1,5 @@
 - sidebar = @page.sidebar if @page&.sidebar&.active
-.container-fluid
+.container-fluid{class: "with#{"out" unless sidebar }-sidebar"}
   .row
     - if sidebar
       .col-md-8= yield

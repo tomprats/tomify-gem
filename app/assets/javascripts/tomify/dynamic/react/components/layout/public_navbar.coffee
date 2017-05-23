@@ -27,10 +27,11 @@ Component.create "Layout.PublicNavbar",
         </div>
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
-            {if @state.user.id
-              @link(name: "Profile", url: "/profile")
-            else if setting "allow_signup"
-              @link(name: "Login", url: "/session")
+            {if setting "allow_signup"
+              if @state.user.id
+                @link(name: "Login", url: "/session")
+              else
+                @link(name: "Profile", url: "/profile")
             }
             {for page in @state.pages
               if page.children[0]

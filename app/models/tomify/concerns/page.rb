@@ -35,17 +35,6 @@ module Tomify::Concerns::Page
       @files.sort_by! { |f| f == "default" ? "" : f } # Default First
     end
 
-    def admin_params
-      [
-        :parent_id, :sidebar_id,
-        :active, :root, :rank,
-        :path, :name, :template,
-        :title, :description,
-        :cover_image, :share_image,
-        :text
-      ]
-    end
-
     def for_env
       all.as_json(only: [:active, :name, :path, :root, :template, :parent_id])
     end
@@ -56,11 +45,6 @@ module Tomify::Concerns::Page
         include: [children: { only: [:active, :name, :path] }]
       )
     end
-  end
-
-  def serializable_hash(options = nil)
-    options = { include: [:parent, :sidebar] } if options.blank?
-    super(options)
   end
 
   private

@@ -21,16 +21,6 @@ module Tomify::Concerns::User
     scope :admin, -> { where(admin: true) }
   end
 
-  class_methods do
-    def admin_params
-      [:admin, :email, :first_name, :last_name]
-    end
-
-    def public_params
-      [:email, :first_name, :last_name, :password, :password_confirmation]
-    end
-  end
-
   def name
     "#{first_name} #{last_name}"
   end
@@ -41,11 +31,6 @@ module Tomify::Concerns::User
 
   def token(name = nil)
     tokens.find_or_create_by(name: name)
-  end
-
-  def serializable_hash(options = nil)
-    options = { methods: [:name] } if options.blank?
-    super options
   end
 
   private

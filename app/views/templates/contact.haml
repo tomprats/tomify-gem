@@ -1,6 +1,6 @@
 .container-fluid
   .row.text-center
-    .col-md-8.col-md-offset-2
+    .dynamic-md
       .page= record.text_to_html
       - if contact_email = setting(:contact_email)
         %p

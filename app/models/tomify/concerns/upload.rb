@@ -17,12 +17,6 @@ module Tomify::Concerns::Upload
     uuid
   end
 
-  class_methods do
-    def admin_params
-      [:uuid, :name, :file, :size, :content_type]
-    end
-  end
-
   private
   def set_model
     self.uuid ||= SecureRandom.uuid

@@ -28,6 +28,10 @@ class Tomify::Api::Public::UsersController < Tomify.controllers.public_api
   end
 
   private
+  def permitted_attributes
+    [:email, :first_name, :last_name, :password, :password_confirmation]
+  end
+
   def set_record
     @record = current_user
   end

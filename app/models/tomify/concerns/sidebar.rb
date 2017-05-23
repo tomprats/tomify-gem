@@ -10,10 +10,4 @@ module Tomify::Concerns::Sidebar
 
     to_html :text
   end
-
-  class_methods do
-    def admin_params
-      [:active, :name, :heading, :template, :text]
-    end
-  end
 end

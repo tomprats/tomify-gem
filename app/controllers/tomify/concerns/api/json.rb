@@ -19,28 +19,33 @@ module Tomify::Concerns::Api::JSON
 
   def index
     find_records
-    render json: { type: :success, data: @records }
+    render json: { type: :success, data: data }
   end
 
   def show
     find_record
-    render json: { type: :success, data: @record }
+    render json: { type: :success, data: data }
   end
 
   def create
     create_record
-    render json: { type: :success, data: @record, message: "#{model_name} Created" }
+    render json: { type: :success, data: data, message: "#{model_name} Created" }
   end
 
   def update
     find_record
     update_record
-    render json: { type: :success, data: @record, message: "#{model_name} Updated" }
+    render json: { type: :success, data: data, message: "#{model_name} Updated" }
   end
 
   def destroy
     find_record
     destroy_record
     render json: { type: :danger, message: "#{model_name} Deleted" }
+  end
+
+  private
+  def data
+    @data ||= (record || records).as_json(serializable_options)
   end
 end

@@ -14,7 +14,7 @@ Component.create "Public.Subscription",
     @model.destroy subscription: { email: @state.email }
   render: ->
     <div className="row text-center">
-      <div className="col-md-4 col-md-offset-4">
+      <div className="dynamic-sm">
         <h3>Unsubscribe</h3>
         {if @state.unsubscribed
           <p>{@state.message}</p>
