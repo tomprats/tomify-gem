@@ -6,6 +6,14 @@ model.columns = [
   { name: "sidebar_id", value: (r) -> r.sidebar?.name ? "None" },
   { name: "name" },
   { name: "path" },
+  { name: "cover_image", value: (r) ->
+    return "None" unless r.cover_image.url
+    <a href={r.cover_image.url} target="_blank">View</a>
+  },
+  { name: "share_image", value: (r) ->
+    return "None" unless r.share_image.url
+    <a href={r.share_image.url} target="_blank">View</a>
+  },
   { name: "updated_at", value: (r) -> r.updated_at.date() },
   { name: "actions", edit: true, destroy: true, view: (r) ->
     <a key="visit" href="/#{r.path}" target="_blank">Visit</a>

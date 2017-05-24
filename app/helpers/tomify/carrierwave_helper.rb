@@ -4,8 +4,8 @@ module Tomify::CarrierwaveHelper
     return unless settings = Tomify.setting(:aws)
 
     descendants = CarrierWave::Uploader::Base.descendants
-    descendants.push CarrierWave::Uploader::Base
-    descendants.push CarrierWave
+    descendants << CarrierWave::Uploader::Base
+    descendants << CarrierWave
     descendants.each do |klass|
       klass.configure do |config|
         config.fog_provider = "fog/aws"

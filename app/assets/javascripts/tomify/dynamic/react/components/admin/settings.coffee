@@ -4,7 +4,7 @@ model.columns = [
   { name: "public", value: (r) -> if r.public then "Yes" else "No" },
   { name: "type", value: (r) -> r.type.split("::").last },
   { name: "value", value: (r) ->
-    return unless r.value?
+    return "None" unless r.value?
     switch type = r.type.split("::").last
       when "Boolean" then "#{r.value}"
       when "Uploader"
