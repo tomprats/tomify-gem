@@ -1,9 +1,9 @@
 %div(style="text-align: center;")
   %p Dear #{@user.first_name},
   %p Welcome to #{setting(:name)}!
-  = image_tag "gifs/woods.gif"
+  = image_tag "tomify/gifs/woods.gif"
   %p
     Click #{link_to "here", root_url(token: @user.token(:email), from: :email)}
     to come back home!
-  = image_tag "gifs/wind.gif"
+  = image_tag "tomify/gifs/wind.gif"
   = render "partials/signature"

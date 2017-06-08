@@ -1,9 +1,9 @@
 %div(style="text-align: center;")
   %p Dear #{@user.first_name},
   %p You've been invited to join #{setting(:name)}!
-  = image_tag "gifs/woods.gif"
+  = image_tag "tomify/gifs/woods.gif"
   %p
     Click #{link_to "here", profile_url(token: @user.token(:email), from: :email)}
     to join!
-  = image_tag "gifs/wind.gif"
+  = image_tag "tomify/gifs/wind.gif"
   = render "partials/signature"
