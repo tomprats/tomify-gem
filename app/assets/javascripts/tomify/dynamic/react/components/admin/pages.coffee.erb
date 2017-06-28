@@ -1,4 +1,6 @@
 model = Model.findOrCreate "Admin.Page"
+view = (r) -> <a key="visit" className="btn btn-primary btn-xs" href="/#{r.path}" target="_blank">Visit</a>
+model.actions = { new: true, view: view, edit: true, destroy: true }
 model.columns = [
   { name: "active", value: (r) -> if r.active then "Yes" else "No" },
   { name: "rank" },
@@ -14,10 +16,7 @@ model.columns = [
     return "None" unless r.share_image.url
     <a href={r.share_image.url} target="_blank">View</a>
   },
-  { name: "updated_at", value: (r) -> r.updated_at.date() },
-  { name: "actions", edit: true, destroy: true, view: (r) ->
-    <a key="visit" href="/#{r.path}" target="_blank">Visit</a>
-  }
+  { name: "updated_at", value: (r) -> r.updated_at.date() }
 ]
 
 form = new Form "horizontal"

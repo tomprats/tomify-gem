@@ -29,9 +29,9 @@ Component.create "Layout.PublicNavbar",
           <ul className="nav navbar-nav">
             {if setting "allow_signup"
               if @state.user.id
-                @link(name: "Login", url: "/session")
-              else
                 @link(name: "Profile", url: "/profile")
+              else
+                @link(name: "Login", url: "/session")
             }
             {for page in @state.pages
               if page.children[0]

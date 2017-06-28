@@ -1,0 +1,15 @@
+%div(style="text-align: center;")
+  %p #{setting :name} has recieved new feedback!
+  %p #{link_to "Login", root_url} to resolve it out!
+  %p
+    %b Name:
+    = @feedback.name
+  %p
+    %b Email:
+    = @feedback.email
+  %p
+    %b Subject:
+    = @feedback.subject
+  %p
+    %b Message
+    %p(style="white-space: pre-line;")= @feedback.message

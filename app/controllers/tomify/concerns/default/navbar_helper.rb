@@ -8,6 +8,7 @@ module Tomify::Concerns::Default::NavbarHelper
     add_to_navbar :public, Proc.new { Tomify.models.page.for_navbar }
     add_to_navbar :admin, [
       { name: "App", path: "admin/settings" },
+      { name: "Feedback", path: "admin/feedback" },
       { name: "Pages", path: "admin/pages" },
       { name: "Sidebars", path: "admin/sidebars" },
       { name: "Uploads", path: "admin/uploads" },

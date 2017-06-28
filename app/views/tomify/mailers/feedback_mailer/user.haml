@@ -1,0 +1,8 @@
+%div(style="text-align: center;")
+  %p Dear #{@feedback.name},
+  %p Thank you for your feedback! You're the best!
+  = image_tag "tomify/gifs/woods.gif"
+  %p
+    Click #{link_to "here", root_url}
+    to come back home!
+  = render "partials/signature"

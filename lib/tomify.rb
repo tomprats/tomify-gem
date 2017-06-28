@@ -15,6 +15,7 @@ module Tomify
   mattr_accessor :mailers
   self.mailers = Constantly.new(
     base: "TomifyMailer",
+    feedback: "Tomify::FeedbackMailer",
     user: "Tomify::UserMailer"
   )
 
@@ -22,6 +23,7 @@ module Tomify
   self.models = Constantly.new(
     activity: "Tomify::Activity",
     base: "TomifyRecord",
+    feedback: "Tomify::Feedback",
     page: "Tomify::Page",
     setting: "Tomify::Setting",
     sidebar: "Tomify::Sidebar",

@@ -1,9 +1,9 @@
 model = Model.findOrCreate "Admin.Upload"
+model.actions = { new: true, edit: true, destroy: true }
 model.columns = [
   { name: "name" },
   { name: "file", value: (r) -> <a href={r.file.url} target="_blank">View</a> },
-  { name: "updated_at", value: (r) -> r.updated_at.date() },
-  { name: "actions", edit: true, destroy: true }
+  { name: "updated_at", value: (r) -> r.updated_at.date() }
 ]
 
 form = new Form "horizontal"

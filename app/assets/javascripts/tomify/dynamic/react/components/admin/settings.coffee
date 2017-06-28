@@ -1,4 +1,5 @@
 model = Model.findOrCreate "Admin.Setting"
+model.actions = { new: true, edit: true, destroy: true }
 model.columns = [
   { name: "name" },
   { name: "public", value: (r) -> if r.public then "Yes" else "No" },
@@ -12,8 +13,7 @@ model.columns = [
       when "Json" then "JSON"
       else r.value
   },
-  { name: "updated_at", value: (r) -> r.updated_at.date() },
-  { name: "actions", edit: true, destroy: true }
+  { name: "updated_at", value: (r) -> r.updated_at.date() }
 ]
 
 options = ["Boolean", "Json", "Text", "Uploader"]

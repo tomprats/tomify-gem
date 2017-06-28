@@ -8,8 +8,6 @@ Component.create "Index.Container",
     @follow @model.on "create", @modelCreate
     @follow @model.on "update", @modelUpdate
     @follow @model.on "destroy", @modelDestroy
-    @newForm = @props.newForm || @props.form.copy()
-    @editForm = @props.editForm || @props.form.copy()
   componentDidMount: ->
     @model.all()
   modelAll: (response) ->
@@ -23,20 +21,34 @@ Component.create "Index.Container",
     @model.all() if response.type == "danger"
   setPage: (page) ->
     @setState(page: 1, currentRecords: @state.records[(page*10 - 10)..page*10])
-  new: (e) ->
-    e.preventDefault()
-    @model.new()
-    false
-  edit: (id, e) ->
-    e.preventDefault()
-    @model.edit(id)
-    false
-  destroy: (id, e) ->
-    e.preventDefault()
-    @model.destroy(id).then (response) ->
-      message type: response.type, text: response.message
-    false
+  actions: (record) ->
+    actions = []
+
+    for action, value of @model.actions when action != "new" && value
+      switch
+        when typeof value is "function"
+          actions.push value(record)
+        when action in ["show", "edit"]
+          modelAction = @model[action]
+          click = (e) ->
+            e.preventDefault()
+            modelAction(record.id)
+          actions.push <a key={action} className="btn btn-primary btn-xs" href="#" onClick={click}>{action.titleize}</a>
+        when action == "destroy"
+          destroy = @model.destroy
+          click = (e) ->
+            e.preventDefault()
+            destroy(record.id).then (response) -> message type: response.type, text: response.message
+          confirm = "Are you sure you want to delete #{record.name}?"
+          actions.push <a key="destroy" className="btn btn-primary btn-xs" href="#" onClick={click} data-confirm={confirm}>Delete</a>
+
+    <td>
+      <div className="btn-group">{actions}</div>
+    </td>
   render: ->
+    actions = @model.actions
+    actions = !!Object.keys(actions).find (action) -> action != "new" && actions[action]
+
     <div>
       <div className="row">
         <div className="col-xs-12">
@@ -44,7 +56,12 @@ Component.create "Index.Container",
             <div className="panel-heading">
               <h4>
                 {@model.name.pluralize.titleize}
-                <a className="btn btn-primary btn-xs" href="#" onClick={@new}>New</a>
+                {if @model.actions.new
+                  click = (e) =>
+                    e.preventDefault()
+                    @model.new()
+                  <a className="btn btn-primary btn-xs" href="#" onClick={click}>New</a>
+                }
               </h4>
               <Pagination page="1" total={@state.records.length} setPage={@setPage} />
             </div>
@@ -55,25 +72,16 @@ Component.create "Index.Container",
                     {for field, i in @model.columns
                       <th key={i}>{field.name.titleize}</th>
                     }
+                    {<th>Actions</th> if actions}
                   </tr>
                 </thead>
                 <tbody>
                   {for record, i in @state.records
                     <tr key={i}>
                       {for field, j in @model.columns
-                        if field.name == "actions"
-                          <td key={j}>
-                            {[
-                              field.view && field.view(record)
-                              field.view && field.edit && " | "
-                              field.edit && <a key="edit" onClick={@edit.bind(null, record.id)} href="#">Edit</a>
-                              field.destroy && " | "
-                              field.destroy && <a key="destroy" onClick={@destroy.bind(null, record.id)} href="#" data-confirm="Are you sure you want to delete #{record.name}?">Delete</a>
-                            ]}
-                          </td>
-                        else
-                          <td key={j}>{field.value?(record) ? record[field.name]}</td>
+                        <td key={j}>{field.value?(record) ? record[field.name]}</td>
                       }
+                      {@actions(record) if actions}
                     </tr>
                   }
                 </tbody>
@@ -82,6 +90,7 @@ Component.create "Index.Container",
           </div>
         </div>
       </div>
-      <New.Container name={@props.name} form={@newForm} />
-      <Edit.Container name={@props.name} form={@editForm} />
+      {<New.Container name={@props.name} form={@props.newForm || @props.form.copy()} /> if @model.actions.new}
+      {<Show.Container name={@props.name} /> if @model.actions.show}
+      {<Edit.Container name={@props.name} form={@props.editForm || @props.form.copy()} /> if @model.actions.edit}
     </div>

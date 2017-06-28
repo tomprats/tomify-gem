@@ -7,7 +7,7 @@ class Tomify::Setting < Tomify.models.base
   validate :public_valid?, on: :update
 
   after_commit :update_config
-  before_destroy { |record| !record.name.in? self.class.required_settings }
+  before_destroy { |record| throw :abort if record.name.in? self.class.required_settings }
 
   def self.required_settings
     ["allow_signup", "aws", "name", "email", "timezone"]

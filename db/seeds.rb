@@ -10,7 +10,7 @@ if Tomify.models.setting.count.zero?
   debug Tomify::Setting::Json.create(name: "aws", value: {
     access_key: "",
     secret_key: "",
-    bucket: "",
+    bucket: ""
   })
   debug Tomify::Setting::Json.create(name: "email", value: {
     username: "",

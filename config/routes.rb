@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     namespace :admin do
       root "settings#index"
 
+      resources :feedback, only: :index
       resources :pages, only: :index
       resources :settings, only: :index
       resources :sidebars, only: :index
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
 
     namespace :api do
       namespace :admin do
+        resources :feedback, only: [:index, :show, :update, :destroy]
         resources :pages, only: [:index, :create, :show, :update, :destroy]
         resources :settings, only: [:index, :create, :show, :update, :destroy]
         resources :sidebars, only: [:index, :create, :show, :update, :destroy]

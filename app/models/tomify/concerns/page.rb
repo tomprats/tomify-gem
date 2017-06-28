@@ -12,7 +12,7 @@ module Tomify::Concerns::Page
     before_validation :format_path
     before_validation :require_root, if: :root_changed?
     before_save :set_root, if: :root_changed?
-    before_destroy { |page| page.root.blank? }
+    before_destroy { |page| throw :abort unless page.root.blank? }
 
     validates_presence_of :rank, :path, :name, :template
     validates_uniqueness_of :path

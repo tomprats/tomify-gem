@@ -1,10 +1,10 @@
 model = Model.findOrCreate "Admin.Sidebar"
+model.actions = { new: true, edit: true, destroy: true }
 model.columns = [
   { name: "active", value: (r) -> if r.active then "Yes" else "No" },
   { name: "name" },
   { name: "heading" },
-  { name: "updated_at", value: (r) -> r.updated_at.date() },
-  { name: "actions", edit: true, destroy: true }
+  { name: "updated_at", value: (r) -> r.updated_at.date() }
 ]
 
 form = new Form "horizontal"

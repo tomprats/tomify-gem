@@ -1,4 +1,5 @@
 model = Model.findOrCreate "Admin.User"
+model.actions = { new: true, edit: true, destroy: true }
 model.columns = [
   { name: "admin", value: (r) -> if r.admin then "Yes" else "No" },
   { name: "email" },
@@ -7,8 +8,7 @@ model.columns = [
   { name: "invited", value: (r) -> if r.invited then "Yes" else "No" },
   { name: "verified", value: (r) -> if r.verified then "Yes" else "No" },
   { name: "created_at", value: (r) -> r.created_at.date() },
-  { name: "updated_at", value: (r) -> r.updated_at.date() },
-  { name: "actions", edit: true, destroy: true }
+  { name: "updated_at", value: (r) -> r.updated_at.date() }
 ]
 
 form = new Form "horizontal"

@@ -1,4 +1,5 @@
 class Tomify::Api::Admin::PagesController < Tomify.controllers.admin_api
+  private
   def permitted_attributes
     [
       :parent_id, :sidebar_id,

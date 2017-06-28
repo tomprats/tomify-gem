@@ -33,6 +33,7 @@ class @Model extends Observer
       Request[type](route, params)
   setDefaultActions: ->
     @setAction "find", @request "get"
+    @setAction "show", @request "get"
     @setAction "edit", @request "get"
     @setAction "update", @request "put", true
     @setAction "new", Request.none
