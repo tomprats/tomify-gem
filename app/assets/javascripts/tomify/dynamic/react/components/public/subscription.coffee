@@ -7,7 +7,7 @@ Component.create "Public.Subscription",
     @store = Store.findOrCreate "Public.Subscription"
     @follow @model.on "destroy", @modelDestroy
   modelDestroy: (response) ->
-    message type: type, text: response.message unless response.type == "success"
+    message type: response.type, text: response.message unless response.type == "success"
     @setState unsubscribed: true, message: response.message
   destroy: (e) ->
     e.preventDefault()

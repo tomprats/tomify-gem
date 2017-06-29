@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       end
 
       namespace :public do
+        resource :feedback, only: :create
         resource :user, only: [:create, :show, :update, :destroy]
         resource :session, only: [:create, :destroy]
         resource :password, only: :create

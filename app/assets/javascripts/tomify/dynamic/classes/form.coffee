@@ -30,6 +30,7 @@ class @Form
     @models.push options.model if options.model
   setComponent: (component, store) ->
     store ?= component.store
+    store.findOrCreate "Form", @
     @component = component
     @record = store.findOrCreate "Record", {}
     @changes = store.findOrCreate "Changes", {}

@@ -1,6 +1,8 @@
 %div(style="text-align: center;")
-  %p #{setting :name} has recieved new feedback!
-  %p #{link_to "Login", root_url} to resolve it out!
+  %p
+    #{setting :name} has recieved new feedback!
+    #{link_to "Login", root_url} to resolve it.
+%div
   %p
     %b Name:
     = @feedback.name

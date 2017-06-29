@@ -6,7 +6,7 @@ class Tomify::Api::Public::FeedbackController < Tomify.controllers.public_api
 
   private
   def permitted_attributes
-    [:name, email: :subject, :message]
+    [:name, :email, :subject, :message]
   end
 
   def record_params

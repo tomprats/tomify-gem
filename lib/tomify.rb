@@ -35,6 +35,7 @@ module Tomify
   mattr_accessor :previews
   self.previews = Constantly.new(
     base: "Tomify::Preview",
+    feedback: "Tomify::FeedbackPreview",
     user: "Tomify::UserPreview"
   )
 
