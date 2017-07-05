@@ -1,12 +1,16 @@
 Store.create "Messages", []
+Store.create "Page", {}
 Store.create "Pages", []
 Store.create "Params", {}
+Store.create "Plugins", []
 Store.create "Settings", []
 Store.create "User", {}
+
 env = Store.create "Env", {}
 env.on "change", ->
   current = Store.find("Env").get()
   Store.find("Messages").set current.messages
+  Store.find("Page").set current.page
   Store.find("Pages").set current.pages
   Store.find("Settings").set current.settings
   Store.find("User").set current.user ? {}
@@ -30,3 +34,4 @@ $ ->
   page = Store.find("Pages").get().find (page) -> page.template == template
   page ?= { path: path ? template }
   if page.root then "/" else "/#{page.path}"
+@addPlugin = (plugin) -> Store.find("Plugins").push plugin

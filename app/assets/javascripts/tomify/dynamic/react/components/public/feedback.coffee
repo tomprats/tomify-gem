@@ -13,6 +13,7 @@ Component.create "Public.Feedback",
     @form = form.setComponent @
     @follow @model.on "create", @modelCreate
     @model.new()
+    @form.changes.merge page: Store.find("Params").get("page")
   modelCreate: (response) ->
     message type: response.type, text: response.message
     @form.changes.set {} if response.type == "success"

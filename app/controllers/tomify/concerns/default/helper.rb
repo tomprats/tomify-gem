@@ -8,6 +8,6 @@ module Tomify::Concerns::Default::Helper
   end
 
   def page
-    @page || root_page
+    @page || Tomify.models.page.default
   end
 end

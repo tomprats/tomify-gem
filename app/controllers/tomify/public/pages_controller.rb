@@ -1,4 +1,10 @@
 class Tomify::Public::PagesController < Tomify.controllers.public
+  rescue_from "ActionController::RoutingError" do |e|
+    raise unless request.path[1..-1].in? ["feedback"]
+
+    render component: "Public.#{request.path[1..-1].capitalize}"
+  end
+
   def show
     @page = Tomify.models.page.find_by(path: params[:path]) || not_found
 

@@ -6,6 +6,7 @@ class CreateFeedback < ActiveRecord::Migration[5.0]
       t.string  :email,                    null: false
       t.string  :subject,                  null: false
       t.string  :message,                  null: false
+      t.string  :page
       t.boolean :resolved, default: false, null: false, index: true
 
       t.timestamps

@@ -1,4 +1,4 @@
-- sidebar = @page.sidebar if @page&.sidebar&.active
+- sidebar = page.sidebar if page.sidebar&.active
 .container-fluid{class: "with#{"out" unless sidebar }-sidebar"}
   .row
     - if sidebar

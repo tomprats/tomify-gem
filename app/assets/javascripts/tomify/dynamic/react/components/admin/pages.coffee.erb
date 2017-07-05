@@ -24,6 +24,7 @@ form.add "parent_id", "select", model: "Admin.Page", allowBlank: true
 form.add "sidebar_id", "select", model: "Admin.Sidebar", allowBlank: true
 form.add "active", "checkbox"
 form.add "root", "checkbox", label: "If checked, this page will be available at <a href='/' target='_blank'>#{location.origin}</a>"
+form.add "feedback", "checkbox"
 form.add "rank", "number"
 form.add "name", "text"
 form.add "template", "select", options: <%= Tomify::Page.templates %>

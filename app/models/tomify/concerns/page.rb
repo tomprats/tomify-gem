@@ -26,7 +26,13 @@ module Tomify::Concerns::Page
 
   class_methods do
     def root
-      find_by(root: true) || new(root: true, name: "Home", path: "", template: "default")
+      find_by(root: true) || default
+    end
+
+    def default
+      feedback = Tomify.setting :feedback
+      feedback = feedback.nil? ? true : feedback
+      new(name: "Home", path: "", template: "default", feedback: feedback)
     end
 
     def templates
@@ -39,7 +45,14 @@ module Tomify::Concerns::Page
     end
 
     def for_env
-      all.as_json(only: [:active, :name, :path, :root, :template, :parent_id])
+      all.as_json(env_serializable_options)
+    end
+
+    def env_serializable_options
+      { only: [
+        :active, :feedback, :name, :path,
+        :root, :template, :parent_id
+      ]}
     end
 
     def for_navbar
@@ -48,6 +61,10 @@ module Tomify::Concerns::Page
         include: [children: { only: [:active, :name, :path] }]
       )
     end
+  end
+
+  def for_env
+    as_json(self.class.env_serializable_options)
   end
 
   private
