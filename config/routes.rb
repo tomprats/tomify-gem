@@ -34,7 +34,8 @@ Rails.application.routes.draw do
         resource :user, only: [:create, :show, :update, :destroy]
         resource :session, only: [:create, :destroy]
         resource :password, only: :create
-        resource :subscription, only: :destroy
+        resource :subscriptions, only: [:create, :destroy]
+        resources :subscriptions, only: :show, param: :email, constraints: { email: /[^\/]+/ }
       end
     end
 

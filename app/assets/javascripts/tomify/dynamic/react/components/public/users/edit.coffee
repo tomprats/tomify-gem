@@ -48,7 +48,9 @@ Component.create "Public.Users.Edit",
         </div>
         <div className="form-group">
           <small>
-            <a href="#" onClick={@destroy} data-confirm="Are you sure you want to permanently delete your account?">Delete</a>
+            <a href="#{path 'subscription'}?email=#{@form.record.get 'email'}">Email Subscription</a>
+            <span> | </span>
+            <a href="#" onClick={@destroy} data-confirm="Are you sure you want to permanently delete your account?">Delete Account</a>
           </small>
         </div>
       </form>

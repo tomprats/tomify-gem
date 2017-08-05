@@ -33,19 +33,17 @@ module Tomify::Concerns::Api::JSON
   end
 
   def update
-    find_record
     update_record
     render json: { type: :success, data: data, message: "#{model_name} Updated" }
   end
 
   def destroy
-    find_record
     destroy_record
     render json: { type: :danger, message: "#{model_name} Deleted" }
   end
 
   private
   def data
-    @data ||= (record || records).as_json(serializable_options)
+    @data ||= (@record || @records).as_json(serializable_options)
   end
 end

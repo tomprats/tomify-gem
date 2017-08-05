@@ -41,11 +41,11 @@ module Tomify::Concerns::Api::Helpers
   end
 
   def record
-    @record
+    @record ||= find_record
   end
 
   def records
-    @records
+    @records ||= find_records
   end
 
   def record_params
