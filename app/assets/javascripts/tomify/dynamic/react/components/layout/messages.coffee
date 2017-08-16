@@ -2,9 +2,12 @@ Component.create "Layout.Messages",
   followStores: ["messages"]
   componentWillInitialize: ->
     @store = Store.create "Messages", window.env.messages
-    @follow @store.on "push", -> $("body").scrollTop(0)
+    @follow @store.on "push", (message) =>
+      $("body").scrollTop(0)
+      setTimeout @remove.bind(null, message), 5000
   remove: (i, e) ->
-    e.preventDefault()
+    e && e.preventDefault()
+    i = @store.get().map((m) -> m.id).indexOf(i.id) if i?.id
     @store.remove(i)
     false
   render: ->

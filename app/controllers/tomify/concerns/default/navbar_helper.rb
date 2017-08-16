@@ -50,7 +50,7 @@ module Tomify::Concerns::Default::NavbarHelper
   def navbar_pages_from(item)
     case item
     when Proc
-      navbar_pages_from item.call
+      navbar_pages_from item.call(self)
     when Hash
       navbar_pages_from_hash item
     when Array

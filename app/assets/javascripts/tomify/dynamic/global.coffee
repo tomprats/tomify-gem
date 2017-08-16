@@ -25,7 +25,9 @@ $ ->
   Store.find("Params").set params
   Store.find("Env").set window.env
 
-@message = (message) -> Store.find("Messages").push message
+@message = (message) =>
+  message.id ?= @uuid()
+  Store.find("Messages").push message
 @redirect = (path) -> location.assign path || "/"
 @setting = (name) ->
   setting = Store.find("Settings").get().find (setting) -> setting.name == name
@@ -35,3 +37,4 @@ $ ->
   page ?= { path: path ? template }
   if page.root then "/" else "/#{page.path}"
 @addPlugin = (plugin) -> Store.find("Plugins").push plugin
+@uuid = -> Math.random().toString(36).substr(2, 9)

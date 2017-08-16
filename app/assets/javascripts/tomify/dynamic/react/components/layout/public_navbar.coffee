@@ -31,7 +31,7 @@ Component.create "Layout.PublicNavbar",
               if @state.user.id
                 @link(name: "Profile", url: "/profile")
               else
-                @link(name: "Login", url: "/session")
+                @link(name: setting("login_text") || "Login", url: "/session")
             }
             {for page in @state.pages
               if page.children[0]
