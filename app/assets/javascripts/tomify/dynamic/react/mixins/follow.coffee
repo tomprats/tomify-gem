@@ -32,7 +32,7 @@
       throw "Component: Invalid Store (#{value})" unless store?
   setupModels: ->
     @models = @convertToHash(@followModels?() || @followModels || [])
-    for key, value of @models when not (value instanceof Store)
+    for key, value of @models when not (value instanceof Model)
       delete @models[key]
       store = @stores[key.camelize] = @store.findOrCreate value, []
       model = @models[key.camelize] = Model.findOrCreate(value)

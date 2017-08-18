@@ -1,4 +1,6 @@
 Component.create "Index.Container",
+  getDefaultProps: -> { length: 5 }
+  getInitialState: -> { page: 1, currentRecords: [] }
   componentWillInitialize: ->
     @model = Model.findOrCreate @props.name
     @store = Store.findOrCreate "#{@props.name}.Index"
@@ -20,7 +22,9 @@ Component.create "Index.Container",
   modelDestroy: (response) ->
     @model.all() if response.type == "danger"
   setPage: (page) ->
-    @setState(page: 1, currentRecords: @state.records[(page*10 - 10)..page*10])
+    finish = page * @props.length
+    start = finish - @props.length
+    @setState(page: page, currentRecords: @state.records[start...finish])
   actions: (record) ->
     actions = []
 
@@ -63,7 +67,7 @@ Component.create "Index.Container",
                   <a className="btn btn-primary btn-xs" href="#" onClick={click}>New</a>
                 }
               </h4>
-              <Pagination page="1" total={@state.records.length} setPage={@setPage} />
+              <Pagination page={@state.page} total={@state.records.length} setPage={@setPage} length={@props.length} />
             </div>
             <div className="table-responsive">
               <table className="table table-bordered table-hover">
@@ -76,7 +80,7 @@ Component.create "Index.Container",
                   </tr>
                 </thead>
                 <tbody>
-                  {for record, i in @state.records
+                  {for record, i in @state.currentRecords
                     <tr key={i}>
                       {for field, j in @model.columns
                         <td key={j}>{field.value?(record) ? record[field.name]}</td>
@@ -86,6 +90,10 @@ Component.create "Index.Container",
                   }
                 </tbody>
               </table>
+            </div>
+            <div className="panel-footer">
+              <Pagination page={@state.page} total={@state.records.length} setPage={@setPage} length={@props.length} />
+              <div className="clearfix" />
             </div>
           </div>
         </div>

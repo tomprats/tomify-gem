@@ -23,7 +23,7 @@ Component.create "Public.Subscription",
         {if @state.subscription.active
           <div>
             <p>
-              <strong>{@state.subscription.email}</strong> will be no longer recieve the majority of emails from {setting "name"}.
+              <strong>{@state.subscription.email}</strong> will no longer recieve the majority of emails from {setting "name"}.
             </p>
             <a href="#" onClick={@destroy} className="btn btn-danger" data-confirm="Are you sure?">Unsubscribe</a>
           </div>
