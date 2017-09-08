@@ -1,8 +1,8 @@
 - sidebar = page.sidebar if page.sidebar&.active
-.container-fluid{class: "with#{"out" unless sidebar }-sidebar"}
+.container-fluid.content{class: "with#{"out" unless sidebar }-sidebar #{"public" unless page.admin}"}
   .row
     - if sidebar
-      .col-md-8= yield
+      .col-md-8.page= yield
       .col-md-4.sidebar= render template: "templates/#{sidebar.template}", locals: { record: sidebar }
     - else
-      .col-md-12= yield
+      .col-md-12.page= yield

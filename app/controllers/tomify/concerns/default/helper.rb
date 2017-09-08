@@ -8,6 +8,10 @@ module Tomify::Concerns::Default::Helper
   end
 
   def page
-    @page || Tomify.models.page.default
+    return @page if @page
+
+    default_page = Tomify.models.page.default
+    default_page.admin = self.class.name.include? "Admin::"
+    default_page
   end
 end

@@ -1,1 +1,12 @@
-@import "tomify/*";
+@import "bootstrap";
+@import "font-awesome";
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,700|Dosis:400,700);
+
+@import "tomify/variables";
+@import "tomify/default";
+@import "tomify/header";
+@import "tomify/navbar";
+@import "tomify/content";
+@import "tomify/pagination";
+@import "tomify/plugins";
+@import "tomify/footer";

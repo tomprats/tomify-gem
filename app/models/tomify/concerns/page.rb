@@ -2,6 +2,8 @@ module Tomify::Concerns::Page
   extend ActiveSupport::Concern
 
   included do
+    attr_accessor :admin
+
     mount_uploader :cover_image, Tomify.uploaders.setting
     mount_uploader :share_image, Tomify.uploaders.setting
 
