@@ -28,16 +28,20 @@ module Tomify::Concerns::Api::Helpers
   end
 
   def model
-    @model ||= model_name.constantize rescue nil
-    @model ||= "Tomify::#{model_name}".constantize
+    @model ||= model_class.constantize rescue nil
+    @model ||= "Tomify::#{model_class}".constantize
+  end
+
+  def model_class
+    @model_class ||= controller_name.classify
   end
 
   def model_name
-    @model_name ||= controller_name.chomp("s").titleize
+    @model_name ||= model_class.split("::").first.titleize
   end
 
   def model_param
-    @model_param ||= controller_name.chomp("s")
+    @model_param ||= model_name.underscore
   end
 
   def record

@@ -21,6 +21,20 @@ module Tomify::Concerns::User
     scope :admin, -> { where(admin: true) }
   end
 
+  class_methods do
+    def env_serializable_options
+      { methods: [:name] }
+    end
+
+    def for_env
+      all.as_json(env_serializable_options)
+    end
+  end
+
+  def for_env
+    as_json(self.class.env_serializable_options)
+  end
+
   def name
     "#{first_name} #{last_name}"
   end

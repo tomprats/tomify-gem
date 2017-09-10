@@ -69,6 +69,10 @@ module Tomify::Concerns::Page
     as_json(self.class.env_serializable_options)
   end
 
+  def markdown_options
+    { replace: as_json(methods: [:cover_image_url, :share_image_url]) }
+  end
+
   private
   def parent_valid?
     errors.add(:parent_id) if parent && parent.id == id

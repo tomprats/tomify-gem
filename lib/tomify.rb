@@ -1,5 +1,6 @@
 require "tomify/constantly"
 require "tomify/engine"
+require "tomify/markdown"
 require "tomify/version"
 
 module Tomify

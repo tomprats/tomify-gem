@@ -5,7 +5,9 @@ class TomifyRecord < ActiveRecord::Base
     attrs.each do |attr|
       define_method("#{attr}_to_html") do
         Rails.cache.fetch("#{self.class.name.downcase}-#{id}-#{attr}") do
-          markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+          options = { autolink: true, tables: true }
+          options.merge!(self.markdown_options) if self.try(:markdown_options)
+          markdown = Redcarpet::Markdown.new(Tomify::Markdown::HTML, options)
           markdown.render(self[attr] || "").html_safe
         end
       end
