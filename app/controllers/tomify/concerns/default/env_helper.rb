@@ -6,7 +6,7 @@ module Tomify::Concerns::Default::EnvHelper
       page: page.for_env,
       pages: Tomify.models.page.for_env,
       settings: Tomify.models.setting.for_env,
-      user: current_user.for_env
+      user: current_user.try(:for_env)
     }
   end
 end

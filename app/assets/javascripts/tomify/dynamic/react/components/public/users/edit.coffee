@@ -1,7 +1,7 @@
 form = new Form
-form.add "email", "email"
 form.add "first_name", "text"
 form.add "last_name", "text"
+form.add "email", "email"
 form.add "password", "password"
 form.add "password_confirmation", "password"
 
@@ -18,7 +18,7 @@ Component.create "Public.Users.Edit",
     @form.setDefaultValues()
   modelUpdate: (response) ->
     message type: response.type, text: response.message
-    Store.find("User").merge @form.changes.get() if response.type == "success"
+    Store.find("User").merge response.data if response.type == "success"
   submit: (e) ->
     e.preventDefault()
     if @form.changes.empty()
@@ -32,7 +32,7 @@ Component.create "Public.Users.Edit",
   destroy: (e) ->
     e.preventDefault()
     Model.find("Public.User").destroy().then (response) ->
-      return redirect response.redirect if response.type == "success"
+      return redirect response.redirect if response.message == "Profile Deleted"
       message type: response.type, text: response.message
     false
   render: ->

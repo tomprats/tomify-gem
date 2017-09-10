@@ -1,9 +1,9 @@
 Model.create "Public.User", path: "user"
 
 form = new Form
-form.add "email", "email"
 form.add "first_name", "text"
 form.add "last_name", "text"
+form.add "email", "email"
 form.add "password", "password"
 form.add "password_confirmation", "password"
 
