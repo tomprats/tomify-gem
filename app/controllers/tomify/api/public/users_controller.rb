@@ -38,7 +38,7 @@ class Tomify::Api::Public::UsersController < Tomify.controllers.public_api
   end
 
   def serializable_options
-    User.env_serializable_options
+    Tomify.models.user.env_serializable_options
   end
 
   def update_record

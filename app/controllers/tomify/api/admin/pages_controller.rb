@@ -6,7 +6,9 @@ class Tomify::Api::Admin::PagesController < Tomify.controllers.admin_api
       :active, :root, :feedback,
       :rank, :path, :name,
       :template, :title, :description,
-      :cover_image, :share_image, :text
+      :cover_image, :remove_cover_image,
+      :share_image, :remove_share_image,
+      :text
     ]
   end
 

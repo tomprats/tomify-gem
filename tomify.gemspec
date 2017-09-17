@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency "bcrypt", "~> 3"
   s.add_dependency "bootstrap-sass", "~> 3"
   s.add_dependency "carrierwave", "~> 1"
+  s.add_dependency "carrierwave-i18n", "~> 0"
   s.add_dependency "coffee-rails", "~> 4"
   s.add_dependency "fog-aws", "~> 1"
   s.add_dependency "font-awesome-rails", "~> 4"
