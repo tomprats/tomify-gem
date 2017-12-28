@@ -15,5 +15,6 @@ module Tomify::EmailHelper
     Rails.application.config.action_mailer.asset_host = settings["base_url"]
     Rails.application.config.action_mailer.default_url_options = { host: settings["base_url"].split("//").last }
     Rails.application.config.action_mailer.smtp_settings = config
+    Rails.application.config.action_mailer.perform_deliveries = false if config[:user_name].blank?
   end
 end
