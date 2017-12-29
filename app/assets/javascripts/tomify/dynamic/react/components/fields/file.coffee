@@ -2,7 +2,6 @@ Component.create "Form.Field.File",
   render: ->
     file = <input placeholder={@props.placeholder} className="form-control" type="file" name={@props.name} id={@props.name} onChange={@props.onChange.bind(null, @props.name)} />
     value = @props.value(@props.name)
-    console.log(value)
     return file unless value.url
     name = "remove_#{@props.name}"
 

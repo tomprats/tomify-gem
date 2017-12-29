@@ -24,7 +24,7 @@ newForm.add "type", "select", options: options
 newForm.add "public", "checkbox"
 newForm.add "name", "text"
 newForm.add "value", "checkbox", if: (record, changes) -> changes.type.split("::").last == "Boolean"
-newForm.add "value", "text", if: (record, changes) -> changes.type.split("::").last == "Text"
+newForm.add "value", "textarea", if: (record, changes) -> changes.type.split("::").last == "Text"
 newForm.add "value", "file", if: (record, changes) -> changes.type.split("::").last == "Uploader"
 newForm.add "json", "json", if: (record, changes) -> changes.type.split("::").last == "Json"
 
@@ -32,7 +32,7 @@ editForm = new Form "horizontal"
 editForm.add "public", "checkbox"
 editForm.add "name", "text"
 editForm.add "value", "checkbox", if: (record) -> record.type.split("::").last == "Boolean"
-editForm.add "value", "text", if: (record) -> record.type.split("::").last == "Text"
+editForm.add "value", "textarea", if: (record) -> record.type.split("::").last == "Text"
 editForm.add "value", "file", if: (record) -> record.type.split("::").last == "Uploader"
 editForm.add "json", "json", if: (record) -> record.type.split("::").last == "Json"
 
