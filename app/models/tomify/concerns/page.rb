@@ -53,7 +53,7 @@ module Tomify::Concerns::Page
     def env_serializable_options
       { only: [
         :active, :feedback, :name, :path,
-        :root, :template, :parent_id
+        :root, :template, :text, :parent_id
       ]}
     end
 
