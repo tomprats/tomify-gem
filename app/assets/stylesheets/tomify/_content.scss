@@ -6,26 +6,29 @@
   div > ul > li {
     margin-top: 5px;
     font-size: 18px;
-    &:before { top: 1px; }
+    &:before {
+      top: 1px;
+      left: 1px;
+    }
     :not(p) { font-size: 14px; padding-left: 20px; }
   }
   ul {
     list-style-type: none;
     padding-left: 0;
-  }
-  li {
-    position: relative;
-    padding-left: 25px;
-    &:before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      font-family: "FontAwesome";
-      content: "\f058";
-      color: $brand;
+    li {
+      position: relative;
+      padding-left: 25px;
+      &:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-family: "FontAwesome";
+        content: "\f058";
+        color: $brand;
+      }
     }
-    ul li:before { content: "\f055"; }
   }
+  li ul li:before { content: "\f055"; }
 
   .page {
     h2, h3 { text-align: center; }
