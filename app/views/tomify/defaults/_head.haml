@@ -2,8 +2,9 @@
   %meta(charset="utf-8")
   %meta(http-equiv="X-UA-Compatible" content="IE=edge")
   %meta(name="viewport" content="width=device-width, initial-scale=1")
-  = tomify_render_for :sharing
-  = tomify_render_for :meta
+  = tomify_render_for :sharing, :layout
+  = tomify_render_for :meta, :layout
+  = tomify_render_for :polyfills, :layout
   - assets = content_for?(:assets) ? yield(:assets) : "application"
   = stylesheet_link_tag    assets, media: "all", "data-turbolinks-track" => true
   = javascript_include_tag assets, "data-turbolinks-track" => true
